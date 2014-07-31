@@ -1,0 +1,9 @@
+These simulations were with:
+- Full model
+- All weights done fairly (i.e. rand() for each, divide each by sum)
+- Equal goal-learner
+- Model: lr, temp, elig, weight_mb, weight_smf, weight_gl
+- Board: normal, w/ 5 option
+
+Results:
+- GL weights were somewhat recoverable, but our model wasn't the better fit

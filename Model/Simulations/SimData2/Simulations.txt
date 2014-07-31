@@ -1,0 +1,9 @@
+These simulations were with:
+- Full model
+- weight_mb = rand(), weight_smf = rand()*(1-weight_mb), weight_dmf = 1-others
+- Servant goal-learner
+- Model: lr, temp, elig, weight_mb, weight_smf, weight_gl
+- Board: normal, w/ 5 option
+
+Results:
+- Our model was the better fit, but the GL weights were still unrecoverable

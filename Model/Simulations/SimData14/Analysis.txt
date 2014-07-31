@@ -1,0 +1,1 @@
+This is THE CRITICAL analysis that I did for false positives/false negatives.  Randomized rewards, randomly drifting using Daw's method of bounds. Tested both noGL and GL on normal crits & incog crits.  Everything works beautifully.

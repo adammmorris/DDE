@@ -1,0 +1,10 @@
+DATA 1
+
+These simulations were with:
+- No SMF
+- Equal goal-learner
+- Model: lr, temp, elig, weight_mb, weight_gl
+- Board: magic # 43 only
+
+Results:
+- GL weights were recoverable & model was better fit

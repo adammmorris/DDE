@@ -1,0 +1,13 @@
+COMP:
+
+Alltrials, full: 20790.2, bad
+Alltrials, resid: 20792.6, bad
+Crittrials, full: 20819.0, decent
+Crittrials, resid: 20801.9, best
+
+COOP:
+
+Alltrials, full: 19120.4, bad
+Alltrials, resid: 19122.2, bad
+Crittrials, full: 19138.1, better
+Crittrials, resid: 19125.4, best

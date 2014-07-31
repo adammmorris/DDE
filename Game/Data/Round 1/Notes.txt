@@ -1,0 +1,1 @@
+This data was from the first version of the flash game.  Obtained on January 16, 2014.  This was the version of the game which I later realized was completely screwed up - besides the design flaws, I'd actually forgotten to incorporate the main reward structure lol.  So the data is unusable.

@@ -1,0 +1,5 @@
+ROUND 3
+
+This data is in-lab data collected over the spring 2014 semester.  The game differs from previous versions primarily in its instructions - Fiery reworked them to be more goal-oriented.
+
+Take 1 was just the first few subjects.  The stuff in the root folder has all subjects (n=82).

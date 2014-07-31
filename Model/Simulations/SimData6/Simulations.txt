@@ -1,0 +1,10 @@
+DATA 1
+
+These simulations were with:
+- No SMF
+- Equal goal-learner
+- Model: lr, temp, elig, weight_mb, weight_gl
+- Board: normal, w/ 5 option (also w/o 5 option)
+
+Results:
+- GL weights were recoverable & model was better fit

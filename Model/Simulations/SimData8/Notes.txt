@@ -1,0 +1,1 @@
+These simulations were run with lr, temp, elig, weight_MB, weight_DMF, and weight_GL.  The first three were, unlike before, given an empirical distribution.  The results were discouraging; under the empirical distribution, shit was largely unrecoverable.

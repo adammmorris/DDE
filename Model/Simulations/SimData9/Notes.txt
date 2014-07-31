@@ -1,0 +1,8 @@
+SIMDATA 9
+
+1: This simulation was done with the no SMF model.  n=100, magic=0, lr/temp/elig sampled from empirical distribution.  Weight_DMF bug is fixed, and betas are made slightly more lenient.  Goal is to see whether shit is still unrecoverable.
+Result - unrecoverable
+
+2: This simulation was the same as before, except using lr/temp/elig sampled from a uniform distribution.  Goal is to see whether the unrecoverability is due to the empirical distribution, or something I did wrong (lol)
+
+3: Dropped elig.  Still didn't work.  :(

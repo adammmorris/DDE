@@ -1,0 +1,11 @@
+These simulations were with:
+- Full model
+- weight_dmf = rand(), weight_mb = rand()*(1-weight_mb), weight_smf = 1-others (so biased towards weight_dmf)
+- Servant goal-learner
+- Model: lr, temp, elig, weight_mb, weight_smf, weight_gl
+- Board: w/ 5 and w/o 5 (see '_no5')
+
+Results:
+- Here, no difference in likelihoods
+I think b/c it was biased towards weight_dmf; not enough model-based learning
+But again, GL weights still unrecoverable

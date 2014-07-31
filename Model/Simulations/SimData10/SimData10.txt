@@ -1,0 +1,1 @@
+These simulations are done in order to test the logistic regression analysis.  n=75, numRounds = [25 175], random (not realistic) parameters

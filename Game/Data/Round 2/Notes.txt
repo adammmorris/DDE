@@ -1,0 +1,21 @@
+ROUND 2
+
+This data is from the second version of the flash game (see DDE_game_v15 in folder).  Obtained on January 25, 2014 (n=107).  This version of the game had a fixed reward structure, along with these changes:
+
+- Made drifting significantly slower
+- Took out some of the option pairs (I took out the ones that gave you a forced choice, i.e. on a shape trial, I took out "1 2" as an option pair)
+- Made the timeout delay much longer.  It's up to 5 seconds right now.
+- Added some stuff into the instructions about forming goals and how that's helpful, etc.
+- I made the environment static instead of dynamic.  This is easily undoable if you want to undo it, but I did what you'd suggested doing a long time ago for the loss aversion project: I used the simulations to find an environment that seemed to bring out the maximal likelihood difference, and I just implemented that in the flash game.  It made a big difference in the simulations, when I forced all agents to use that environment.  (The magic # was board 43, starting at round 26)
+
+So this data is usable.  Note that dde_game.csv includes the data from Round 1 as well, so stick to data_raw.
+
+RESULTS (first analysis, done around Feb 1)
+
+The results from this data were as follows:
+- Dropped 68 out of 107
+- About 30 people were really doing model-based learning (defined as model-based weight > .1)
+- Of those 30, about 15 were doing some kind of model-free goal-learning (defined as goal-learning weight > .1)
+- Of those 15, the goal-learning weights are pretty uniform from .1 to .8.  I got the rough estimate that 6 were heavily doing that kind of learning by counting the # of people who had a GL weight > .4, but that cutoff is arbitrary
+
+Note that these analyses were all done with the weight_DMF bug (and possibly the S2+1 bug?).
