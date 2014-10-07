@@ -111,6 +111,11 @@ end
 
 %% Set board params
 load(['C:\Personal\School\Brown\Psychology\DDE Project\Model\' boardName '.mat']);
+
+% This is just b/c I switched something between making the first version
+%   (named 'board.mat') and the later versions
+% So if you're making a new board, you can always just set orig_simulation
+% to 0
 if strcmpi(boardName,'board')==1,orig_simulation = 1;
 else orig_simulation = 0;
 end
@@ -125,7 +130,7 @@ numOptions = size(transitions,3);
 numGoals = numFeatureValues * numTrialTypes;
 numStates = numOptions+1; % remember to preserve the state # integrity
 
-% Get first critical trial
+% Get critical trials
 good = true(numRealRounds,1);
 templist = 1:numRealRounds;
 distance_cutoff = 3;
@@ -175,6 +180,7 @@ else
     error('# of rows in weights must be either 1 or numAgents');
 end
 
+% This was an old thing - we're now always using servant = 0
 if servant == 1
     weight_dumbModelFree = ones(numAgents,1) - weight_modelBased - weight_smartModelFree;
 else

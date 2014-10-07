@@ -1,13 +1,13 @@
 %% Collect simulated data
 
 % Get data from random 'participants'
-numSubjects = 75;
-numRounds = [25 175];
+numSubjects = 200;
+numRounds = [50 175];
 practiceCutoff = numRounds(1);
 servant = 0;
-boardName = 'board';
+boardName = 'board3';
 connected = 1;
-numCrits = 30;
+numCrits = 26;
 
 % Set 'magic' to a nonzero number if you want all agents to run on just
 %   that board
@@ -21,7 +21,7 @@ real_weights = zeros(numSubjects,4-connected);
 for thisSubj = 1:numSubjects
     % This is all very random
     lr = rand();
-    temp = rand()*2 + .5;
+    temp = rand()*1.5 + .5;
     elig = rand()*(1/2) + .5;
     
     % This is all more realistic
@@ -45,8 +45,8 @@ for thisSubj = 1:numSubjects
     weight_mb = rand(); % model-based
     weight_smf = rand(); % smart model-free
     weight_dmf = rand(); % dumb model-free
-    weight_gl = max(rand()-.25,0); % goal-learner
-    
+    weight_gl = 0; % goal-learner
+
     if connected==1
         real_weights(thisSubj,:) = [weight_mb weight_smf weight_gl] / (weight_mb+weight_smf+weight_dmf+weight_gl);
     else
@@ -56,7 +56,7 @@ end
 
 % Run them all!
 if connected == 1
-    [earnings, negLLs, results, myrewards] = runModel_v9(real_params, real_weights, numRounds, numSubjects, servant, boardName, magic, numCrits);
+    [earnings, negLLs, results] = runModel_v10(real_params, real_weights, numRounds, numSubjects, boardName, magic);
 else
     [earnings, negLLs, results] = runModel_v7_unconnected(real_params, real_weights, numRounds, numSubjects, servant, boardName, magic);
 end

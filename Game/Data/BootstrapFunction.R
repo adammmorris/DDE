@@ -2,6 +2,10 @@
 #return(coef(summary(DDEModel2_justcrits))[2,"z value"]);
 #}
 
+# PUT MODELS HERE
+fit = model_crits;
+fit_null = model_crits_null;
+
 ## generic parametric bootstrapping function; return a single simulated deviance
 ##  difference between full (m1) and reduced (m0) models under the
 ##  null hypothesis that the reduced model is the true model
@@ -19,7 +23,7 @@ obsdev <- c(2*(logLik(fit)-logLik(fit_null)))
 ##   random effects of `(Intercept)` and Days
 ## Timing: approx. 70 secs on a 2.66 GHz Intel Core Duo laptop
 set.seed(1001)
-sleepstudy_PB <- replicate(250,pboot(fit_null,fit))
+sleepstudy_PB <- replicate(1000,pboot(fit_null,fit))
 ## End(Not run)
  
 library(lattice)

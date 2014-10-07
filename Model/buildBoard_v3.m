@@ -6,37 +6,93 @@
 % - Changing my bounded drifting to random drifting
 % - Inserting critical trials
 
-path = 'C:\Personal\School\Brown\Psychology\DDE Project\Model\board3.mat';
+path = 'C:\Personal\School\Brown\Psychology\DDE Project\git\Model\board3.mat';
 
-%% Basic parameters
-numOptions = 5; % # of horizontal choices
-numStates = numOptions + 1; % # of states (not including trival third-level states)
-numAvailable = 2; % # available at any given choice
-numBoards = 100;
-numRounds = 200;
-numTrialTypes = 2; % 1 = shape trial, 2 = color trial
-numFeatureValues = 3; % # of feature values for any given feature; i.e. for letter features, 1 = A, 2 = B, 3 = C
+numAgents = 200;
+numRounds = [50 175];
 
-% Transition probabilities
-main = .8;
-other = (1-main)/(numOptions-1);
-transition_probs = zeros(numOptions,numOptions); % rows are which action you chose in level 1; columns are which state you got to in level 2
-for i=1:numOptions
-    for j=1:numOptions
-        if i == j
-            transition_probs(i,j) = main;
-        else
-            transition_probs(i,j) = other;
-        end
+numTotalRounds = sum(numRounds);
+numPracticeRounds = numRounds(1);
+numRealRounds = numRounds(2);
+
+orig_simulation = 0;
+
+numCrits = 26;
+numOptions = 4;
+numFeatureValues = 3;
+numTrialTypes = 2;
+numGoals = numFeatureValues * numTrialTypes;
+numStates = 6; % remember to preserve the state # integrity
+
+% Trial types
+% numTotalRounds x numAgents
+trialTypes = round(rand(numTotalRounds,numAgents)+1);
+
+% Options
+% numTotalRounds x 2 x numAgents
+options = zeros(numTotalRounds,2,numAgents);
+
+for i = 1:numAgents
+    opt1 = round(rand(numTotalRounds,1)*3)+1;
+    opt2 = getOtherOption(opt1,trialTypes);
+    options(:,:,i) = [opt1 opt2];
+end
+
+% Transitions
+% numTotalRounds x numOptions x numAgents
+baseprob = .825;
+mainTransition = 1-((numRealRounds*(1-baseprob)-numCrits)/(numRealRounds-numCrits)); % gotta take crit trials into account
+
+transitions = zeros(numTotalRounds,numOptions,numAgents);
+
+for i = 1:numAgents
+    transitions(:,:,i) = repmat((1:numOptions)+1,numTotalRounds,1);
+    templist = rand(numTotalRounds,1)>mainTransition;
+    transitions(templist,:,i) = repmat([6 6 6 6],sum(templist),1);
+end
+
+% Rewards
+% numTotalRounds x numTrialTypes x numFeatureValues x numAgents
+rewards = zeros(numTotalRounds,numTrialTypes,numFeatureValues,numAgents);
+stdShift = 2;
+rewardRange_hi = 5;
+rewardRange_lo = -4;
+
+for thisAgent = 1:numAgents
+    rewards(numPracticeRounds+1,1,:,thisAgent) = randsample(rewardRange_lo:rewardRange_hi,numFeatureValues,true);
+    rewards(numPracticeRounds+1,2,:,thisAgent) = randsample(rewardRange_lo:rewardRange_hi,numFeatureValues,true);
+    
+    for thisRound = (numPracticeRounds+1):(numTotalRounds-1)
+        trialType = trialTypes(thisRound,thisAgent);
+        otherType = 1+1*(trialType==1);
+        re = squeeze(rewards(thisRound,trialType,:,thisAgent))+round(randn(numFeatureValues,1)*stdShift);
+        re(re>rewardRange_hi) = 2*rewardRange_hi-re(re>rewardRange_hi);
+        re(re<rewardRange_lo) = 2*rewardRange_lo-re(re<rewardRange_lo);
+        rewards(thisRound+1,trialType,:,thisAgent) = re;
+        rewards(thisRound+1,otherType,:,thisAgent) = rewards(thisRound,otherType,:,thisAgent);
     end
 end
 
-% Board parameter matrices
-trialTypes = zeros(numBoards,numRounds,1); % trialTypes(round) gives you the trial type of that round in that board; 1 = letter trial, 2 = color trial
-options1 = zeros(numBoards,numRounds,numAvailable); % options1(round,:) gives you the actions available in state 1 for that round in that board
-transitions = zeros(numBoards,numRounds,numOptions); % transitions(round,choice) gives you the second-level state to which you transition after taking action 'choice' in level 1 - so it should never be 1
+% Critical trials
+% Same for each person
+good = true(numRealRounds,1);
+templist = 1:numRealRounds;
+distance_cutoff = 3;
+criticalTrials = zeros(numCrits,2); % 1st column has trial #, 2nd column is whether it's congruent (1) or incongruent(0)
+probCong = .5; % set this to 1 if you want all congruent crit trials
 
-%% Features
+for i = 1:numCrits
+    criticalTrials(i,1) = randsample(templist(good),1);
+    for k = 0:distance_cutoff
+        if (criticalTrials(i,1)+k) <= numRealRounds, good(criticalTrials(i,1)+k)=false; end
+        if (criticalTrials(i,1)-k) > 0, good(criticalTrials(i,1)-k)=false; end
+    end
+    
+    if rand() < probCong,criticalTrials(i,2)=1;end
+end
+criticalTrials(:,1) = criticalTrials(:,1) + numPracticeRounds;
+
+% Features & goals
 % For trial type 1 (aka shapes): 1 = square, 2 = circle, 3 = triangle
 % For trial type 2 (aka colors): 1 = blue, 2 = red, 3 = green
 features = zeros(numStates,numTrialTypes); % features(state,dimension) gives you the feature value of a particular state along one of the trial-type dimensions
@@ -61,80 +117,5 @@ for trialType = 1:numTrialTypes
     end
 end
 
-%% Rewards
-% We need a separate reward structure for each trial type
-% For a given trial type, all the second-level states with the same
-%   feature value along that dimension have the same reward
-% And those rewards drift over time
-% So conceptually, states don't have individual rewards; feature values do
-rewards = zeros(numBoards,numRounds,numTrialTypes,numFeatureValues); % rewards(board,round,trialType,featureValue) gives you the reward for a given feature value in a given trial type in a given round on a given board
-rewardBound = 5;
-
-% Drift parameters
-% directions = zeros(numBoards,numTrialTypes,numFeatureValues);
-% drift_weights = [.15 .5 .35]; % -increment zero increment
-% increment = 1;
-
-stdShift = 1.5;
-
-%% Critical trials
-% 2 types:
-% Color trial, blue vs. green, sent to red; then red vs. green.  1st
-%   should be predictive of 2nd only on color trials
-% Letter trial, A vs. C, sent to B; then B vs. C.  1st should be predictive
-%   of 2nd only on letter trials
-numCriticalTrials = 0;
-criticalTrials = randsample(numRounds,numCriticalTrials,false);
-
-%% Loop through all boards
-for thisBoard = 1:numBoards
-    % Initialize random rewards & directions
-    parfor trialType = 1:numTrialTypes
-        rewards(thisBoard,1,trialType,:) = randsample(-rewardBound:rewardBound,numFeatureValues,true);
-    end
-    
-    % Loop through all rounds
-    % If we want to insert critical trials, it will be easy to do here
-    for thisRound = 1:numRounds
-        % Decide trial type randomly
-        trialTypes(thisBoard,thisRound) = 1 + (1 * (rand() < .5));
-        
-        % Are we in a critical trial?
-        %if any(criticalTrials == thisRound)
-        % Choose available actions randomly
-        %    options1(thisBoard,thisRound,:) = randsample(numOptions,2,false);
-        % Are we in a test trial?
-        %elseif any(criticalTrials == (thisRound-1))
-        %else
-        % Choose available actions randomly
-        options1(thisBoard,thisRound,:) = randsample(numOptions,2,false);
-        
-        % Decide transitions randomly
-        parfor thisChoice = 1:numOptions
-            transitions(thisBoard,thisRound,thisChoice) = randsample(2:numStates,1,true,transition_probs(thisChoice,:)); % 2:(numOptions+1) to account for the first state
-        end
-        %end
-        
-        % Drift rewards for next round
-        % We're only gonna drift the rewards of the trial type we just played
-        for featureValue = 1:numFeatureValues % again, leave 1st state as zero
-            trialType = trialTypes(thisBoard,thisRound);
-            
-            % Get shift according to weights & then multiply it by direction
-            shift = round(randn()*stdShift);
-            
-            % Do it!
-            rewards(thisBoard,thisRound+1,trialType,featureValue) = rewards(thisBoard,thisRound,trialType,featureValue) + shift;
-        end
-        % Keep other trial type rewards the same
-        for trialType = 1:numTrialTypes
-            if trialType ~= trialTypes(thisBoard,thisRound)
-                rewards(thisBoard,thisRound+1,trialType,:) = rewards(thisBoard,thisRound,trialType,:);
-            end
-        end
-    end
-    fprintf(strcat('Completed board '),num2str(thisBoard));
-end
-
 %% Save
-save(path,'options1','transitions','trialTypes','numTrialTypes','features','numFeatureValues','goals','rewards');
+save(path,'orig_simulation','numCrits','numOptions','numFeatureValues','numTrialTypes','numStates','numGoals','trialTypes','options','transitions','rewards','rewardRange_hi','rewardRange_lo','criticalTrials','features','goals');
