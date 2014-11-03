@@ -20,6 +20,7 @@ end
 %   same as in the raw excel file.
 % (I gave up on the timesorting thing - not worth it.)
 
+id=subjectid;clear subjectid;
 subjMarkers = getSubjMarkers(id);
 numSubjects = length(subjMarkers);
 
@@ -39,3 +40,9 @@ end
 
 % Clean up
 clear index; clear numSubjects; clear thisSubj;
+
+%% 4: Misc
+numTrialsCompleted = getNumCompleted(id);
+finalScores = getFinalScores(score,subjMarkers);
+practiceCutoff = 75; tosslist = [];
+Type=type1;clear type1;

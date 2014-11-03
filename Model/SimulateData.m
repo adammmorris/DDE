@@ -6,22 +6,23 @@ numRounds = [50 175];
 practiceCutoff = numRounds(1);
 servant = 0;
 boardName = 'board3';
-connected = 1;
 numCrits = 26;
+
+twoTrialTypes = 1;
+useSMF = 0;
+useGL = 1;
 
 % Set 'magic' to a nonzero number if you want all agents to run on just
 %   that board
 magic = 0;
-%magic = 43;
-%magic = 48;
 
 % Set up their parameters
 real_params = zeros(numSubjects,3);
-real_weights = zeros(numSubjects,4-connected);
+real_weights = zeros(numSubjects,3);
 for thisSubj = 1:numSubjects
     % This is all very random
     lr = rand();
-    temp = rand()*1.5 + .5;
+    temp = rand()*1.5;
     elig = rand()*(1/2) + .5;
     
     % This is all more realistic
@@ -43,23 +44,17 @@ for thisSubj = 1:numSubjects
     real_params(thisSubj,:) = [lr temp elig];
     
     weight_mb = rand(); % model-based
-    weight_smf = rand(); % smart model-free
+    if useSMF == 1, weight_smf = rand(); % smart model-free
+    else weight_smf = 0; end
     weight_dmf = rand(); % dumb model-free
-    weight_gl = 0; % goal-learner
+    if useGL == 1, weight_gl = rand(); % goal-learner
+    else weight_gl = 0; end
 
-    if connected==1
-        real_weights(thisSubj,:) = [weight_mb weight_smf weight_gl] / (weight_mb+weight_smf+weight_dmf+weight_gl);
-    else
-        real_weights(thisSubj,:) = [weight_mb weight_smf weight_dmf weight_gl];
-    end
+    real_weights(thisSubj,:) = [weight_mb weight_smf weight_gl] / (weight_mb+weight_smf+weight_dmf+weight_gl);
 end
 
 % Run them all!
-if connected == 1
-    [earnings, negLLs, results] = runModel_v10(real_params, real_weights, numRounds, numSubjects, boardName, magic);
-else
-    [earnings, negLLs, results] = runModel_v7_unconnected(real_params, real_weights, numRounds, numSubjects, servant, boardName, magic);
-end
+[earnings, negLLs, results] = runModel_v10(real_params, real_weights, numRounds, numSubjects, boardName, magic, twoTrialTypes);
 
 id = results(:,1);
 Type = results(:,2);
@@ -69,6 +64,8 @@ Action = results(:,5);
 S2 = results(:,6);
 Re = results(:,7);
 round1 = results(:,8);
+
+numTrialsCompleted = 250*ones(numSubjects,1);
 
 %% Analyze it
 curTosslist = [];

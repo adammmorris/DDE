@@ -81,17 +81,17 @@
 % - Throughout this whole thing, be VERY careful to distinguish (and
 %   convert) between action space, state space, and feature space
 
-function [earnings, negLL, results] = runModel_v10(agent_params, weights, numRounds, numAgents, boardName, magicBoard)
+function [earnings, negLL, results] = runModel_v10(agent_params, weights, numRounds, numAgents, boardName, magicBoard, twoTrialTypes)
 
 %% Defaults
 if nargin < 7
-    magicBoard = 0;
+    twoTrialTypes = 1;
 end
 if nargin < 6
-    boardName = 'board';
+    magicBoard = 0;
 end
 if nargin < 5
-    servant = 0;
+    boardName = 'board';
 end
 if nargin < 4
     numAgents = 80;
@@ -216,16 +216,17 @@ for thisAgent = 1:numAgents
     %% Go through rounds
     for thisRound = 1:numTotalRounds
         % What trial type is this?
-        %trialType = trialTypes(magic,thisRound);
-        trialType = trialTypes(thisRound,magic);
-        otherType = 1+1*(trialType==1);
+        if twoTrialTypes == 1, trialType = trialTypes(thisRound,magic);
+        else trialType = 2; % If we're not doing the version w/ two trial types, it's always color
+        end
         
         % Are we in a test trial? (i.e. was last trial a critical trial?
         if any(criticalTrials(:,1)==(thisRound-1))
             % If we are, force options & trial type
             
-            % Are we in a congruent test trial?
-            if criticalTrials(find(criticalTrials(:,1)==(thisRound-1)),2) == 1, trialType = prevType;
+            % Are we in a congruent test trial (or in the version w/ only 1
+            % trial type)?
+            if (twoTrialTypes == 0) || (criticalTrials(find(criticalTrials(:,1)==(thisRound-1)),2) == 1), trialType = prevType;
             else trialType = 1+1*(prevType==1); end
             
             opt1 = getCorrespondingAction(prevChoice,prevType,orig_simulation);
@@ -354,7 +355,7 @@ for thisAgent = 1:numAgents
         end
         
         %% Update 'results' array
-        results(roundIndex,:) = [thisAgent trialType action_options(1) action_options(2) choice newstate reward roundIndex];
+        results(roundIndex,:) = [thisAgent trialType action_options(1) action_options(2) choice newstate reward thisRound];
         
         % Move round index forward
         roundIndex = roundIndex + 1;
