@@ -158,6 +158,8 @@ print(ggplot(data.summary, aes(x = trials, y = mean.choice)) +
   geom_bar(position = position_dodge(), stat="identity", fill="blue") +
   geom_errorbar(aes(ymin=mean.choice-me, ymax=mean.choice+me)) +
   ggtitle(title) + # plot title
+  xlab("Pre-critical trial reward") +
+  ylab("% who chose same goal") +
   theme_bw() + # remove grey background (because Tufte said so)
   theme(panel.grid.major = element_blank())) # remove x and y major grid lines (because Tufte said so)
 dev.off() # Close PNG

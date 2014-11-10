@@ -2,7 +2,7 @@
 # Adam Morris
 # 10/22/2014
 
-setwd("C:/Personal/School/Brown/Psychology/DDE Project/git/Game/Data/Round 5/Take2/Simulation/NoSMF");
+setwd("C:/Personal/School/Brown/Psychology/DDE Project/git/Game/Data/Round 5/Take3");
 
 require(lme4);
 require(ggplot2);
@@ -10,10 +10,14 @@ require(reshape2);
 source("C:/Personal/School/Brown/Psychology/DDE Project/git/Game/Data/Functions.R");
 
 data = read.csv("WithGL.csv");
+data_noncrits = data[data$Crits==-2,];
 data_crits = data[data$Crits==1,];
 data_crits_incog = data[data$Crits==0,];
 data_crits_comb = data[data$Crits>=0,];
 data_unlikely = data[data$Crits==-1,];
+
+## tossing?
+#model_tossing = glmer(Choice~MB+MF+(1+MB+MF|Subj),family=binomial,data=data_noncrits);
 
 ## mixed effect models
 
@@ -22,6 +26,10 @@ model_null = glmer(Choice~1+(1|Subj),family=binomial,data=data_crits);
 
 model_all = glmer(Choice~MB+MF+MFonMB+(1|Subj)+(0+MB+MF+MFonMB|Subj),family=binomial,data=data_crits);
 model_all_null = glmer(Choice~MB+MF+(1|Subj)+(0+MB+MF|Subj),family=binomial,data=data_crits);
+
+# if those are overspecified, can use:
+#model_all_uncor = glmer(Choice~MB+MF+MFonMB+(1|Subj)+(0+MB|Subj)+(0+MF|Subj)+(0+MFonMB|Subj),family=binomial,data=data_crits);
+#model_all_uncor_null = glmer(Choice~MB+MF+(1|Subj)+(0+MB|Subj)+(0+MF|Subj)+(0+MFonMB|Subj),family=binomial,data=data_crits);
 
 model_unlikely = glmer(Choice~Unlikely+(1|Subj)+(0+Unlikely|Subj),family=binomial,data=data_unlikely);
 
@@ -41,10 +49,14 @@ for (i in 1:numSubj) {
 	re_lo[i] = mean(data_crits[data_crits$Subj==subj,]$Choice[data_crits[data_crits$Subj==subj,]$MFonMB<0]);
 	re_hi[i] = mean(data_crits[data_crits$Subj==subj,]$Choice[data_crits[data_crits$Subj==subj,]$MFonMB>0]);
 }
+#keep_list = slopes$Subj$MF>quantile(slopes$Subj$MF,.2,type=1);
+#re_lo = re_lo[keep_list];
+#re_hi = re_hi[keep_list];
+
 t.test(re_lo,re_hi,paired=TRUE);
 c(mean(re_hi),mean(re_lo),mean(re_hi)-mean(re_lo))
 
-data.raw <- data.frame(trials=rep(c('MFonMB<0','MFonMB>0'),each=numSubj),value=c(re_lo,re_hi),subj=rep(1:numSubj,2));
+data.raw <- data.frame(trials=rep(c('Reward < 0','Reward > 0'),each=numSubj),value=c(re_lo,re_hi),subj=rep(1:numSubj,2));
 doBarPlot(data.raw=data.raw,"Baseline","barplot-congruent.png");
 
 # unlikely trials
@@ -60,7 +72,7 @@ keep_list = !is.nan(re_lo_unlikely)&!is.nan(re_hi_unlikely);
 re_lo_unlikely=re_lo_unlikely[keep_list];
 re_hi_unlikely=re_hi_unlikely[keep_list];
 
-#t.test(re_lo_unlikely,re_hi_unlikely,paired=TRUE);
+t.test(re_lo_unlikely,re_hi_unlikely,paired=TRUE);
 c(mean(re_hi_unlikely),mean(re_lo_unlikely),mean(re_hi_unlikely)-mean(re_lo_unlikely))
 
 #data.raw <- data.frame(trials=rep(c('Unlikely<0','Unlikely>0'),each=numSubj),value=c(re_lo_unlikely,re_hi_unlikely),subj=rep(1:numSubj,2));
