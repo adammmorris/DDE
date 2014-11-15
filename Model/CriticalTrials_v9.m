@@ -39,7 +39,7 @@ numSubjects = length(subjMarkers);
 % MAKE SURE THIS IS SET RIGHT!!!!
 % If from simulations, 50
 % If from real data, 75
-practiceCutoff = 50;
+practiceCutoff = 75;
 
 % IMPORTANT: Is this data simulated from the original 'board.mat'?
 % If it is, set this to 1.  Otherwise, set to 0
@@ -51,7 +51,7 @@ numDataPoints = length(id);
 distance_cutoff = 1; % for MFonMB
 distance_cutoff_MB = numDataPoints; % no distance cutoff for these two
 distance_cutoff_MF = numDataPoints;
-gamma = .85; % instead, time discounting
+gamma = 1; % instead, time discounting
 
 % The important data
 MB_1 = zeros(numDataPoints,1);
@@ -66,10 +66,16 @@ unlikely = zeros(numDataPoints,1); % unlikely transitions that WEREN'T crit tria
 
 subjIDs = zeros(numDataPoints,1);
 choices = zeros(numDataPoints,1); % 0 is left, 1 is right
-critTrials = -2*ones(numDataPoints,1); % -2 for nothing, -1 for unlikely transition but not crit trial, 0 for incongruent crit trial, 1 for congruent crit trial
-%roundNum = zeros(numDataPoints,1);
 
-% We're only keeping critical trials from non-tossed subjects
+% Code for critTrials:
+% congruent goal = 1
+% incongruent goal = 0
+% congruent goal+action = -1
+% incongruent goal, congruent action = -2
+% likely transition = -3
+critTrials = -3*ones(numDataPoints,1);
+
+% Right now, we're only keeping critTrials >= 0 from non-tossed subjects
 keep = false(numDataPoints,1);
 
 %% Loop!
@@ -185,9 +191,7 @@ for thisSubj = 1:numSubjects
                     end
                 end
                 
-                % Check..
-                % Includes both x & y trials now
-                %if ~any(receivedGoal==[chosenAction chosenAction_cor]) && chosenAction~=5 && any(chosenAction_cor==[optX optY]) && (halfCrits==0 || ~any(receivedGoal==[optX optX_cor optY optY_cor])) && optY~=optX_cor
+                % Are we in a congruent goal trial?
                 if receivedGoal==5 && ~any(chosenAction==[opt1 opt2]) && any(chosenAction_cor==[opt1 opt2])
                     % We're in a critical trial!
                     keep(thisRound) = true;
@@ -209,10 +213,22 @@ for thisSubj = 1:numSubjects
                         MF(thisRound)=MF_2(thisRound)-MF_1(thisRound);
                     end
                     
-                elseif receivedGoal==5 && any(chosenAction==[opt1 opt2]) && ~any(chosenAction_cor==[opt1 opt2]) && Type(thisRound-1)==trialType
-                    % Unlikely transitions that aren't critical trials
-                    keep(thisRound) = true;
+                % Are we in a congruent goal+action trial?   
+                elseif receivedGoal==5 && any(chosenAction==[opt1 opt2]) && Type(thisRound-1)==trialType
+                    keep(thisRound) = false;
                     critTrials(thisRound) = -1;
+                    unlikely(thisRound) = Re(thisRound-1);
+                    
+                    if opt1==chosenAction
+                        choices(thisRound) = Action(thisRound)==opt1;
+                    else
+                        choices(thisRound) = Action(thisRound)==opt2;
+                    end
+                
+                % Are we in an incongruent goal, congruent action trial?
+                elseif receivedGoal==5 && any(chosenAction==[opt1 opt2]) && Type(thisRound-1)~=trialType
+                    keep(thisRound) = false;
+                    critTrials(thisRound) = -2;
                     unlikely(thisRound) = Re(thisRound-1);
                     
                     if opt1==chosenAction
@@ -248,4 +264,4 @@ MF = MF - mean(MF);
 MFonMB = MFonMB - mean(MFonMB);
 unlikely = unlikely - mean(unlikely);
 
-csvwrite('Parsed.csv',[MB MF MFonMB unlikely critTrials choices subjIDs]);
+csvwrite('Parsed.csv',[MB MF MFonMB critTrials choices subjIDs]);
