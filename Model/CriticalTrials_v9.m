@@ -83,7 +83,7 @@ keep = false(numDataPoints,1);
 for thisSubj = 1:numSubjects
     subjID = thisSubj;
     
-    if numTrialsCompleted(subjID) > 200 && numTrialsCompleted(subjID) <= 250
+    if numTrialsCompleted(subjID) > 200 && numTrialsCompleted(subjID) <= 250 && finalScores(subjID)>194
         
         % Get the subject's index
         if thisSubj < length(subjMarkers)
@@ -264,4 +264,5 @@ MF = MF - mean(MF);
 MFonMB = MFonMB - mean(MFonMB);
 unlikely = unlikely - mean(unlikely);
 
-csvwrite('Parsed.csv',[MB MF MFonMB critTrials choices subjIDs]);
+csvwrite('Parsed_ttests.csv',[MFonMB critTrials choices subjIDs]);
+csvwrite('Parsed_models.csv',[MB MF MFonMB critTrials choices subjIDs]);

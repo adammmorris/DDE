@@ -2,7 +2,7 @@
 # Adam Morris
 # 10/22/2014
 
-setwd("C:/Personal/School/Brown/Psychology/DDE Project/git/Game/Data/Round 5/Take3");
+setwd("C:/Personal/School/Brown/Psychology/DDE Project/git/Game/Data/Round 8");
 
 require(lme4);
 require(ggplot2);
