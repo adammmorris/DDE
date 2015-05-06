@@ -1,0 +1,6 @@
+#!/usr/local/bin/bash
+#$ -cwd
+#PBS -e /dev/null
+#PBS -o /dev/null
+
+/home/amm4/R/R-devel/bin/Rscript ExecuteBootstrap.R "/home/amm4/DDE/Game/Data/Round 6/Take4/.RData" "model" "/home/amm4/DDE/Game/Data/Round 6/Take4/Bootstrapping/model" $SGE_TASK_ID

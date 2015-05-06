@@ -1,0 +1,36 @@
+BEHAVIORAL
+
+WithA0:
+
+- model: 0/1000
+- model_all:
+
+2-trial-type:
+- model:
+- model_incog:
+- model_comb:
+- model_all:
+
+SIMULATION
+
+Baseline - no MF-goal:
+
+- model:
+- model_all:
+
+Baseline - with MF-goal:
+
+- model:
+- model_all:
+
+2 trial type - no MF-goal:
+- model:
+- model_incog:
+- model_comb:
+- model_all:
+
+2 trial type - with MF-goal:
+- model:
+- model_incog:
+- model_comb:
+- model_all:

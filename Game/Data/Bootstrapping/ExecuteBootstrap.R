@@ -1,0 +1,48 @@
+### ExecuteBootstrap.R
+
+## Inputs: input_data, model_name, output_folder, tasknum
+# input_data should be a .RData file w/ two models: <model_name> and <model_name>_null
+# tasknum should range from 1 to (numTotalReplications/numReplications)
+
+## Output: writes  to <tasknum>.csv in output_folder
+
+# Parse arguments
+args <- commandArgs(trailingOnly=TRUE);
+input_data = args[1];
+model_name = args[2];
+output_folder = args[3];
+tasknum = args[4];
+
+# Some prep work
+load(input_data);
+require(lme4);
+
+numReplications = 4;
+
+fit <- get(model_name);
+fit_null <- get(paste(model_name,"_null",sep=""));
+
+# Run dis shit
+
+## generic parametric bootstrapping function; return a single simulated deviance
+##  difference between full (m1) and reduced (m0) models under the
+##  null hypothesis that the reduced model is the true model
+pboot <- function(m0,m1) {
+  s <- simulate(m0)
+  L0 <- logLik(refit(m0,s))
+  L1 <- logLik(refit(m1,s))
+  2*(L1-L0)
+}
+ 
+obsdev <- c(2*(logLik(fit)-logLik(fit_null)))
+
+rm(.Random.seed,envir=globalenv());
+bootstrap <- replicate(numReplications,pboot(fit_null,fit))
+ 
+output <- mean(bootstrap>obsdev);
+
+# Write to output file
+write.table(output,paste(output_folder,"/",tasknum,".csv",sep=""),col.names=FALSE,row.names=FALSE);
+
+# Quit
+q("no")
