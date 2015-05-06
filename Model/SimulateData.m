@@ -10,7 +10,7 @@ numCrits = 26;
 
 twoTrialTypes = 1;
 useSMF = 0;
-useGL = 1;
+useGL = 0;
 
 % Set 'magic' to a nonzero number if you want all agents to run on just
 %   that board
@@ -65,7 +65,7 @@ S2 = results(:,6);
 Re = results(:,7);
 round1 = results(:,8);
 
-numTrialsCompleted = 250*ones(numSubjects,1);
+numTrialsCompleted = sum(numRounds)*ones(numSubjects,1);
 
 %% Analyze it
 curTosslist = [];

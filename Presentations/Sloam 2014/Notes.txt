@@ -1,0 +1,28 @@
+GOAL STUFF
+
+http://www.goallab.nl/publications/documents/Custers,%20Aarts%20%282005%29%20-%20positive%20affect%20as%20implicit%20motivator.pdf
+http://faculty.chicagobooth.edu/ayelet.fishbach/research/BBS%20Commentary.pdf
+http://faculty.chicagobooth.edu/ayelet.fishbach/research/goals.pdf
+http://www.goallab.nl/publications/documents/Marienetal2012.pdf
+http://psycnet.apa.org/journals/amp/54/7/493/ (implementation intentions)
+
+DUAL-PROCESS STUFF
+
+http://matt.colorado.edu/teaching/highcog/readings/s96.pdf
+http://www.sciencedirect.com/science/article/pii/S0896627313008052
+
+MODEL-BASED TRAINING MODEL-FREE
+
+Gershman's paper
+Dyna: http://incompleteideas.net/sutton/papers/sutton-91b.pdf
+Reverse replay: http://www.nature.com/nature/journal/v440/n7084/abs/nature04587.html
+Mixed instrumental controller: http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3586710/
+
+INCORPORATING MODEL-FREE INTO MODEL-BASED
+
+Dyna2: http://dl.acm.org/citation.cfm?id=1390278
+Pruning decision trees stuff (http://www.ploscompbiol.org/article/info%3Adoi%2F10.1371%2Fjournal.pcbi.1002410)
+
+DRUGS
+
+http://www.nature.com/neuro/journal/v8/n11/full/nn1584.html

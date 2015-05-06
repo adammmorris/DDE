@@ -6,7 +6,7 @@ good = true(numRealRounds,1);
 templist = 1:numRealRounds;
 distance_cutoff = 3;
 criticalTrials = zeros(numCriticalTrials,2); % 1st column has trial #, 2nd column is whether it's congruent (1) or incongruent(0)
-probCong = .5; % set this to 1 if you want all congruent crit trials
+probCong = 1; % set this to 1 if you want all congruent crit trials
 
 for i = 1:numCriticalTrials
     criticalTrials(i,1) = randsample(templist(good),1);
@@ -17,4 +17,4 @@ for i = 1:numCriticalTrials
     
     if rand() < probCong,criticalTrials(i,2)=1;end
 end
-criticalTrials(:,1) = criticalTrials(:,1) + numPracticeRounds;
+%criticalTrials(:,1) = criticalTrials(:,1) + numPracticeRounds;

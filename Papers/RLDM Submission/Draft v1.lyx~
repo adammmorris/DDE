@@ -1,0 +1,811 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+% For LaTeX2e
+\usepackage{rldmsubmit}
+\usepackage{palatino}\usepackage{graphicx}
+
+
+\title{Habitual goals}
+
+\author{
+Adam Morris\thanks{Corresponding author.} \\
+Department of Cognitive, Linguistic, and Psychological Science\\
+Brown University\\
+Providence, RI 02912 \\
+\texttt{adam\_morris@brown.edu} \\
+\And
+Fiery Cushman \\
+Department of Psychology \\
+Harvard University \\
+Cambridge, MA 01451 \\
+\texttt{cushman@fas.harvard.edu} \\
+}
+
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+\usepackage[margin=10pt,font=small,labelfont=bf,labelsep=endash]{caption}
+\usepackage[T1]{fontenc}
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine natbib
+\cite_engine_type authoryear
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+maketitle
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+The distinction between habitual and goal-directed action is fundamental
+ to decision-making research 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "dolan2013goalsand"
+
+\end_inset
+
+.
+ Habits form as stimulus-response pairings are “stamped in” following reward.
+ In contrast, goal-directed behavior requires planning over a causal model.
+ Many existing models portray habitual and goal-directed systems as competing
+ for behavioral control 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "daw2005uncertaintybased"
+
+\end_inset
+
+, but evidence suggests they may be codependent.
+ Goals exhibit habit-like properties, such as automatic activation under
+ contextual cuing 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "huang2014theselfish"
+
+\end_inset
+
+ and susceptibility to unconscious reinforcement 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "custers2005positive"
+
+\end_inset
+
+.
+ Also, in complex real-world scenarios, selecting a goal out of potentially
+ infinitely many candidates seems like an intractable problem, yet people
+ solve it with ease – suggesting that a more efficient decision making system
+ is influencing goal selection.
+ We propose that goal selection can be under habitual control.
+ Across two experiments, we demonstrate that people naturally form habitual
+ goals which are “stamped in” by reward, but which subsequently guide behavior
+ through model-based forward planning.
+ The role of habitual control in goal-directed action has potential implications
+ for a range of issues, including the contextual nature of cognitive skills,
+ the nature of addiction, and the origin of the moral “doctrine of double
+ effect”.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+keywords
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+ habits, goals, model-free, model-based, reinforcement learning 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+acknowledgements
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+We thank Michael Frank, Samuel Gershman, and Josiah Nunziato for their advice
+ and assistance.
+ This research was supported by grant N00014-14-1-0800 from the Office of
+ Naval Research.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+startmain
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+% to start the main 1-4 pages of the submission.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+A rich line of decision-making research relies on the distinction between
+ goal-directed and habitual behavior 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "dolan2013goalsand"
+
+\end_inset
+
+.
+ When pursuing goals, people “plan ahead” over a causal model of their environme
+nt and select actions which are most likely to lead to goal fulfillment.
+ For example, a dieter will turn down a slice of cake because he/she is
+ pursuing the goal of weight loss.
+ This method of action selection is flexible and powerful, but becomes computati
+onally difficult as the causal model grows in complexity.
+ On the other hand, habits are simple stimulus-response patterns which get
+ “stamped in” by reinforcement 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "graybiel2008habitsrituals"
+
+\end_inset
+
+.
+ For example, rats trained to press a food-releasing lever will continue
+ to press the lever even when they are no longer hungry – pressing the lever
+ has been habitualized 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "dolan2013goalsand"
+
+\end_inset
+
+.
+ Forming habits based on reinforcement patterns is an inflexible but efficient
+ alternative to goal-directed behavior, a way to quickly selection actions
+ which usually lead to reward.
+\end_layout
+
+\begin_layout Standard
+These behavioral patterns are often formalized in the language of reinforcement
+ learning (RL), an influential computational framework for modeling decision-mak
+ing processes 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "sutton1998introduction"
+
+\end_inset
+
+.
+ There are two broad classes of RL algorithms.
+ Model-based algorithms maintain an internal causal model of the environment
+ and assess actions according to their likely consequences, thus enabling
+ goal-directed planning.
+ In contrast, model-free algorithms do not maintain a causal model, but
+ instead select actions according to their context-dependent history of
+ reinforcement.
+ The resulting stimulus-response habits are globally adaptive, but may exhibit
+ local irrationality 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "daw2011modelbased"
+
+\end_inset
+
+.
+ RL models capture several core elements of human choice, including prediction-e
+rror updating in the midbrain dopamine system 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "niv2009reinforcement"
+
+\end_inset
+
+ and hierarchical arrangement of goals in model-based planning 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "botvinick2009hierarchically"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+These two systems, goal-directed (model-based) and habitual (model-free),
+ are often portrayed as competing for control of action selection 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "daw2005uncertaintybased"
+
+\end_inset
+
+.
+ But we propose a cooperative interaction: goal selection itself can be
+ habitualized.
+ There are two reasons to suspect a habitual influence on goal selection.
+ The first is that goals exhibit habit-like properties.
+ They can be automatically activated by contextual stimuli 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "huang2014theselfish"
+
+\end_inset
+
+, they can be unconsciously reinforced 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "custers2005positive"
+
+\end_inset
+
+, and they can drive behavior without conscious awareness 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "huang2014theselfish"
+
+\end_inset
+
+.
+ These properties suggest that the system which produces stimulus-response
+ habits might also act on goals.
+\end_layout
+
+\begin_layout Standard
+The second reason is that, in a complicated world, selecting goals by exhaustive
+ly searching the candidate goal space is computationally infeasible – there
+ are too many candidates.
+ For example, a person trying to satisfy their hunger would have to consider
+ every possible goal, from turning on the TV to cleaning the bathroom to
+ making a sandwich.
+ Forming stimulus-goal habits based on reinforcement patterns would be a
+ solution to this problem, a way to quickly select goals which usually lead
+ to reward.
+ If the goal “make a sandwich” is consistently rewarded with successful
+ hunger reduction, it would become habitualized and automatically activate
+ in the context of hunger.
+\end_layout
+
+\begin_layout Standard
+To test whether people form habitualized goals, we developed a decision-making
+ paradigm that isolates the behavioral influence of model-free goal selection.
+ Over two experiments, we demonstrated that people spontaneously and robustly
+ form habitual goals, which are 
+\begin_inset Quotes eld
+\end_inset
+
+stamped in
+\begin_inset Quotes erd
+\end_inset
+
+ by reward but guide action through model-based planning.
+\end_layout
+
+\begin_layout Section
+Experiments and Results
+\end_layout
+
+\begin_layout Standard
+To test for a model-free influence on goal selection, we adapted a multistep
+ choice paradigm designed to dissociate the influence of habitual and goal-direc
+ted behavior 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "glascher2010statesversus"
+
+\end_inset
+
+.
+ Participants played a decision-making game where they chose between four
+ buttons, numbered 1-4 (Figure 1a).
+ Buttons 1 and 3 usually led to a blue shape, and buttons 2 and 4 usually
+ led to a red shape.
+ But each button had a 20% chance of leading to a green shape instead.
+ Participants received bonus points for getting different colors – blue
+ was worth a certain amount, red a different amount, etc.
+ Some colors won points, others lost points.
+ But the value of each color drifted throughout the experiment, so participants
+ had to adapt their choices to the current color values in order to maximize
+ their winnings.
+ On every trial, participants were presented with two out of the four buttons.
+ They made their choice, transitioned to a colored shape, clicked on the
+ shape, and received their bonus points.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/Figure 1.PNG
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Task structure and logic.
+ a, In Experiment 1 participants performed a two-stage decision task.
+ In Stage 1, they were presented with two options drawn from a set of four
+ possible options.
+ These transitioned with variable probabilities to a set of Stage 2 shapes,
+ which then transitioned deterministically to a set of drifting reward distribut
+ions.
+ b, The logic of the experiment depends on a subset of critical trials.
+ For instance, participants might be presented with options 1 and 2 in a
+ setup trial.
+ Upon selecting option 1, they experience a low-probability transition to
+ the green state and receive a large reward.
+ A habitual influence on goal selection uniquely predicts an increase in
+ the selection of option 3 on the subsequent critical trial, because options
+ 1 and 3 share the common color-goal of blue.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The presence of low-probability transitions to green allowed us to isolate
+ a model-free influence on action selection 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "glascher2010statesversus"
+
+\end_inset
+
+.
+ Through instruction and practice, participants were made well aware of
+ the game’s transitional structure.
+ Specifically, they knew that each button had an equally likely chance of
+ randomly transitioning to green – you couldn’t plan to get to green.
+ So whenever participants transitioned to green, the reinforcement they
+ received could not be incorporated into a model-based planning mechanism.
+ On the other hand, model-free responses are blind to causal structure –
+ they simply respond to reinforcement.
+ So if participants become more likely to select the same action following
+ a rewarding low-probability transition to green, and less likely following
+ a punishing transition to green, the effect can only be due to a model-free
+ influence on action selection.
+\end_layout
+
+\begin_layout Standard
+However, we wanted to isolate a model-free influence on goal selection,
+ not action selection.
+ Our analysis relied on a crucial subset of trials (Figure 1b).
+ On the “setup” trial, participants were presented with a pair of buttons
+ – say, buttons 1 and 2.
+ Participants selected a button, experienced a low-probability transition
+ to green, and either received a reward or punishment.
+ Then, on the “critical” trial, they were presented with the button that
+ had the same color-goal as the button they just chose.
+ For example, if the participant chose button 1, on the next trial they
+ would be presented with button 3 (paired with either 2 or 4).
+ 1 and 3 have the same color-goal because they both usually lead to blue.
+\end_layout
+
+\begin_layout Standard
+Because the setup trial was a low-probability transition to green, a model-based
+ planning system would not directly incorporate the reinforcement into its
+ action selection process.
+ Also, while a model-free action selection system would incorporate the
+ reinforcement into its likelihood of selecting button 1, it would not learn
+ anything about button 3, because choosing button 3 is a different action.
+ So current models of the goal-directed and habitual systems predict that
+ the reinforcement received on setup trials would have no effect on the
+ likelihood of choosing button 3 in the critical trial.
+\end_layout
+
+\begin_layout Standard
+However, if participants are forming habits of goal selection, then that
+ reinforcement would have an effect.
+ When selecting button 1, participants form a goal akin to “get blue”.
+ If forming that goal is rewarded, participants would start to form a habit
+ of selecting that goal – and because buttons 1 and 3 have the same goal,
+ they would be more likely to select button 3 on the next trial.
+ Similarly, if forming that goal is punished, participants would be less
+ likely to select button 3.
+ And that is what we find (Figure 2a).
+ On average, participants were more likely to choose the button with the
+ same color-goal after a rewarding trial (89% of choices) than after a punishing
+ trial (69% of choices).
+ The difference was significant (repeated measures t-test, t(134) = 12.5,
+ p < .0001).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename Figures/Figure2.png
+	scale 45
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Results.
+ Bars represent the proportion of critical trials on which participants
+ chose the same color-goal, averaged across participants.
+ Error bars indicate the standard error of the mean of these proportions
+ across participants.
+ a-b show results from Experiments 1-2, respectively.
+ Participants were significantly more likely to choose the action with the
+ same color-goal after reward than after punishment.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+An alternative interpretation of our result is that, instead of forming
+ true habitual goals, participants were merely forming habits of “abstracted”
+ actions – actions which somehow incorporated both buttons 1 and 3.
+ To address this concern, we ran a second experiment in which we tested
+ whether the representations being habitualized could be flexibly integrated
+ into an independent causal model.
+ This integration is a hallmark of goal-directed planning, but unlikely
+ for “abstracted” actions.
+\end_layout
+
+\begin_layout Standard
+In Experiment 2, before proceeding to the real task, participants were trained
+ on a set of intuitive transitions from letter buttons (A,B,C,D) to number
+ buttons (1,2,3,4).
+ A led to 1, B to 2, etc (Figure 3a).
+ Then the task proceeded as before, with participants choosing between number
+ buttons, transitioning to colors, and receiving reinforcement.
+ Except now participants were informed that, on some trials, instead of
+ choosing between number buttons, they would choose between letter buttons
+ (and subsequently transition to the corresponding number button).
+ These “letter” trials always occurred on critical trials (Figure 3b).
+ So if, on a setup trial, a participant chose button 1 and transitioned
+ to green, on the next trial they would be presented with button C (paired
+ with either B or D).
+ If participants were truly forming habitual goals, then they would be more
+ likely to choose the letter button with the same color-goal after a rewarding
+ critical trial than after a punishing critical trial.
+ And that is again what we find (Figure 2b).
+ On average, participants were more likely to choose the letter button with
+ the same color-goal after a rewarding trial (85% of choices) than after
+ a punishing trial (69% of choices).
+ The difference was significant (t(172) = -9.17, p < .0001).
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename C:/Personal/School/Brown/Psychology/DDE Project/git/SPP Submission/Figure 3.PNG
+	scale 60
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Experiment 2 structure and logic.
+ Experiment 2 was modeled on the design of Experiment 1, except that a,
+ participants performed a pre-training in which they learned deterministic
+ transitions between Stage 0 letters and Stage 1 numbers, and b, on critical
+ trials the Stage 0 choices were selectively reintroduced.
+ Thus, in order to make successful choices on critical trials, participants
+ were required to choose a Stage 0 letter that would lead to their preferred
+ Stage 1 number.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Discussion
+\end_layout
+
+\begin_layout Standard
+As outlined above, our hypothesis can help explain the habit-like properties
+ of goals, as well as the ease with which humans select goals out of a potential
+ly infinite candidate space.
+ Our hypothesis also has implications for a range of other issues.
+ For example, it is debated whether complex cognitive skills are general
+ or “context-bound” 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "perkins1989arecognitive"
+
+\end_inset
+
+.
+ The debate hinges on what it means to have acquired a cognitive skill.
+ People often break complex cognitive tasks down into a hierarchy of goals
+ and subgoals 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "botvinick2009hierarchically"
+
+\end_inset
+
+ – for example, long division is taught as the sequential completion of
+ five subgoals (divide, multiply, subtract, bring down, repeat).
+ Acquiring a cognitive skill might boil down to acquiring the proper habitual
+ subgoal activations (“divide, then multiply, then subtract…”) in the context
+ of higher goals (“perform long division”) or external stimuli (seeing a
+ division problem on your test).
+ This approach suggests a critical role for context in cognition.
+\end_layout
+
+\begin_layout Standard
+In a more pernicious domain, it is also debated whether drug addiction is
+ primarily a habitual or goal-directed phenomenon 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "olmstead2001cocaine,everitt2001theneuropsychological"
+
+\end_inset
+
+.
+ Addicts’ behavior seems to blend canonical features of habits and goals
+ – cravings are activated automatically by contextual cues, but addicts
+ will perform actions to obtain drugs that clearly transcend simple stimulus-res
+ponse pairings.
+ Our hypothesis offers a synthesis of these views.
+ Addiction can be both habitual and goal-directed, with contextual cues
+ activating the goal of obtaining drugs (which can then guide actions in
+ a model-based way).
+\end_layout
+
+\begin_layout Standard
+Finally, in the realm of moral philosophy, the Doctrine of Double Effect
+ (DDE) is a widely invoked moral principle which states that it is wrong
+ to harm others as a means to an end, but acceptable to harm them as a side
+ effect 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "mcintyre2010doctrine"
+
+\end_inset
+
+.
+ Many psychologists have argued that our intuitions supporting the DDE are
+ an accidental “byproduct of cognitive architecture” 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "cushman2014thepsychological"
+
+\end_inset
+
+, but there are competing theories for what produces those intuitions.
+ Our hypothesis offers an elegant explanation.
+ In order to harm somebody as a means, you have to form a goal of harming
+ them.
+ But forming that goal is consistently punished 
+\begin_inset CommandInset citation
+LatexCommand citep
+key "cushman2013actionoutcome"
+
+\end_inset
+
+.
+ If goals can respond to reinforcement, people will end up with an aversion
+ to forming the “harm someone” goal, making them averse to harming people
+ as a means but not to harming them as a side effect.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "C:/Personal/School/Brown/Psychology/Thesis/Paper/References/Primary"
+options "apalike"
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

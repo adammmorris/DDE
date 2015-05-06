@@ -1,0 +1,15 @@
+Possible prediction errors (assuming 1 trial type, no smart MF-action):
+
+After making top-level choice & receiving green,
+	MF-action PE on top-level choice w/ V(green)-V(top-level action)
+	MF-goal PE w/ V(green)-V(top-level)???
+After clicking on green,
+	MF-action PE on green w/ reward-V(green)
+	MF-action PE on top-level choice w/ elig*(reward-V(green)) - but this is the same as above
+	MF-goal PE on reward-V(top-level goal)
+	
+Okay how many PEs do we have:
+(1) V(green) - V(top action)
+(2) reward - V(green)
+(3) reward - V(top action)
+(4) reward - V(top goal)

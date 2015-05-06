@@ -1,0 +1,482 @@
+#LyX file created by tex2lyx 2.1
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+% For LaTeX2e
+\usepackage{rldmsubmit}
+\usepackage{palatino}\usepackage{graphicx}
+
+
+\title{Formatting Instructions for RLDM}
+
+
+\author{
+Dorsal S.~Raphe\thanks{ Use footnote for providing further information
+about author (webpage, alternative address)---\emph{not} for acknowledging
+funding agencies.} \\
+Department of Computer Science\\
+Cranberry-Lemon University\\
+Pittsburgh, PA 15213 \\
+\texttt{raphe@cs.cranberry-lemon.edu} \\
+\And
+Coauthor \\
+Affiliation \\
+Address \\
+\texttt{email} \\
+\AND
+Coauthor \\
+Affiliation \\
+Address \\
+\texttt{email} \\
+\And
+Coauthor \\
+Affiliation \\
+Address \\
+\texttt{email} \\
+\And
+Coauthor \\
+Affiliation \\
+Address \\
+\texttt{email} \\
+(if needed)\\
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+
+\end_preamble
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package none
+\inputencoding auto
+\fontencoding default
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 11
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 0
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 0
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+maketitle
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Abstract
+The 
+\emph on
+title
+\emph default
+ should be a maximum of 100 characters.
+\end_layout
+
+\begin_layout Abstract
+The 
+\emph on
+abstract
+\emph default
+ should be a maximum of 2000 characters of text, including spaces (no figure is allowed). You will be asked to copy this into a text-only box; and it will appear as such in the conference booklet. Use 11
+\begin_inset space ~
+
+\end_inset
+
+point type, with a vertical spacing of 12
+\begin_inset space ~
+
+\end_inset
+
+points. The word 
+\series bold
+Abstract
+\series default
+ must be centered, bold, and in point size 12. Two line spaces precede the abstract. 
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+keywords
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+ enter key words here 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+acknowledgements
+\end_layout
+
+\end_inset
+
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+{
+\end_layout
+
+\end_inset
+
+We are deeply indebted to iCORE for their generous support of RLDM2015.
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+startmain
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+% to start the main 1-4 pages of the submission.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Submission of papers to RLDM
+\end_layout
+
+\begin_layout Standard
+RLDM requires electronic submissions. This year's electronic submission site is 
+\end_layout
+
+\begin_layout Standard
+\align center
+https://cmt.research.microsoft.com/RLDM2013/Default.aspx 
+\end_layout
+
+\begin_layout Standard
+Please read the instructions below, and follow them faithfully. Note that there is also a template 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+verb+rldm.rtf+
+\end_layout
+
+\end_inset
+
+ for Microsoft Word, which is available from the website below. 
+\end_layout
+
+\begin_layout Subsection
+Style
+\end_layout
+
+\begin_layout Standard
+Papers to be submitted to RLDM must be prepared according to the instructions presented here. Papers consist of a 
+\emph on
+title
+\emph default
+, which has a maximum of 100 characters, an 
+\emph on
+abstract
+\emph default
+, which is a maximum of 2000 characters, up to five key words, and an 
+\emph on
+extended abstract
+\emph default
+, which starts on the second page, and can be between one and four pages. Figures and references should be included in the latter.
+\end_layout
+
+\begin_layout Standard
+Authors preferring LaTeX are requested to use the RLDM LaTeX style files obtainable at the RLDM website at 
+\end_layout
+
+\begin_layout Standard
+\align center
+http://www.rldm.org/ 
+\end_layout
+
+\begin_layout Standard
+The file 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+verb+rldm.pdf+
+\end_layout
+
+\end_inset
+
+ contains these instructions and illustrates the various formatting requirements your RLDM paper must satisfy. There is a LaTeX style file called 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+verb+rldmsubmit.sty+
+\end_layout
+
+\end_inset
+
+, and a LaTeX file 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+verb+rldm.tex+
+\end_layout
+
+\end_inset
+
+, which may be used as a 
+\begin_inset Quotes eld
+\end_inset
+
+shell
+\begin_inset Quotes erd
+\end_inset
+
+ for writing your paper. All you have to do is replace the author, title, abstract, keywords, acknowledgements and text of the paper with your own. The file 
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+\backslash
+verb+rldm.rtf+
+\end_layout
+
+\end_inset
+
+ is provided as an equivalent shell for Microsoft Word users.
+\end_layout
+
+\begin_layout Section
+General formatting instructions
+\end_layout
+
+\begin_layout Standard
+
+\begin_inset CommandInset label
+LatexCommand label
+name "gen_inst"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The paper size for RLDM is 
+\begin_inset Quotes eld
+\end_inset
+
+US Letter
+\begin_inset Quotes erd
+\end_inset
+
+ (rather than 
+\begin_inset Quotes eld
+\end_inset
+
+A4
+\begin_inset Quotes erd
+\end_inset
+
+). Margins are 1.5cm around all sides. Use 11
+\begin_inset space ~
+
+\end_inset
+
+point type with a vertical spacing of 12
+\begin_inset space ~
+
+\end_inset
+
+points. Palatino is the preferred typeface throughout. Paragraphs are separated by 1/2
+\begin_inset space ~
+
+\end_inset
+
+line space, with no indentation.
+\end_layout
+
+\begin_layout Standard
+Paper title is 17
+\begin_inset space ~
+
+\end_inset
+
+point, initial caps/lower case, bold, centered between 2
+\begin_inset space ~
+
+\end_inset
+
+horizontal rules. Top rule is 4
+\begin_inset space ~
+
+\end_inset
+
+points thick and bottom rule is 1
+\begin_inset space ~
+
+\end_inset
+
+point thick. Allow 0.6cm space above and below title to rules.
+\end_layout
+
+\begin_layout Standard
+The lead author's name is to be listed first (left-most), and the co-authors' names (if different address) are set to follow. If there is only one co-author, list both author and co-author side by side.
+\end_layout
+
+\begin_layout Section
+Preparing PostScript or PDF files
+\end_layout
+
+\begin_layout Standard
+Please prepare PostScript or PDF files with paper size 
+\begin_inset Quotes eld
+\end_inset
+
+US Letter
+\begin_inset Quotes erd
+\end_inset
+
+. The -t letter option on dvips will produce US Letter files.
+\end_layout
+
+\end_body
+\end_document

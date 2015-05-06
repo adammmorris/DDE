@@ -1,7 +1,7 @@
 %% ProcessRealData (May 1, 2014)
 % This script does all the necessary pre-processing when receiving real
 %   data
-% Three critical steps..
+% Four critical steps..
 
 %% 1: Add +1 to the S2 array
 % This is b/c the DDE game gives it to us in 1-5, but the scripts need it
@@ -20,7 +20,7 @@ end
 %   same as in the raw excel file.
 % (I gave up on the timesorting thing - not worth it.)
 
-id=subjectid;clear subjectid;
+id=subjectid; clear subjectid;
 subjMarkers = getSubjMarkers(id);
 numSubjects = length(subjMarkers);
 
@@ -44,5 +44,5 @@ clear index; clear numSubjects; clear thisSubj;
 %% 4: Misc
 numTrialsCompleted = getNumCompleted(id);
 finalScores = getFinalScores(score,subjMarkers);
-practiceCutoff = 75; tosslist = [];
-Type=type1;clear type1;
+tosslist = [];
+Type=type1; clear type1;

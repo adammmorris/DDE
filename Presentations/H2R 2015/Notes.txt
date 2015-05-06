@@ -1,0 +1,14 @@
+Goals & subgoals are "abstracted" states. With normal MB planning, you'd have to evaluate them by walking down their paths of the decision tree & seeing the returns. But grows exponentially, very difficult to do.
+Goals can be more abstract than the states considered in MF learning, but they might be the same. Even if they're the same, there's a difference between MB and MF: MB evaluates them by walking this decision tree, MF evaluates them by assigned value (through TD learning).
+
+	Why make this whole distinction between some states being goals & others not? Very useful psychologically (means/end distinction). Could be useful computationally too - allows reuse & recombination.
+	
+	Why say that MF represents states more simply than MB goals? Could be the same. But again, that's fine. That would also be important in the psych literature - most ppl conceptualize MF states as less abstract.
+
+Related to algorithms that walk down the decision tree until they reach a node that they're pretty sure they know the value of, and just stop there.
+
+In Go: overarching goal is to get most pieces, subgoals are like "win a corner", "create a section of pieces that can't be taken"
+
+MF values of nodes in a tree search
+
+Different from "pruning" decision tree - not cutting off branches

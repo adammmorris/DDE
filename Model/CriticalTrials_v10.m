@@ -28,18 +28,12 @@
 %% Dependent Variable
 % choices: 0 for option X, 1 for option Y
 
-%% Notes
-% - I'm currently keeping in trials that have the same corresponding goal
-% for both options (these only exist because I messed up)
-
 %% Initialize shit
 subjMarkers = getSubjMarkers(id);
 numSubjects = length(subjMarkers);
 
 % MAKE SURE THIS IS SET RIGHT!!!!
-% If from simulations, 50
-% If from real data, 75
-practiceCutoff = 75;
+practiceCutoff = 50;
 
 % IMPORTANT: Is this data simulated from the original 'board.mat'?
 % If it is, set this to 1.  Otherwise, set to 0
@@ -79,16 +73,25 @@ critTrials = -3*ones(numDataPoints,1);
 keep_ttests = false(numDataPoints,1);
 keep_models = false(numDataPoints,1);
 
+%% Toss criteria
+% MAKE SURE THESE ARE RIGHT ALSO
+
 % Final score cutoffs
-scoreCutoff_1trial = 194;
-scoreCutoff_2trial = 126;
+% If using 1 trial type, set it to 194
+% If using 2 trial types, set it to 126
+% If you want to stop using this toss criteria, set it to 0.
+scoreCutoff = 0;
+
+% Trial completion cutoffs
+minNumTrials = 0; % I usually set this to 50 less than the total number of rounds
+maxNumTrials = 225; % this should be equal to the total number of rounds
 
 %% Loop!
 % Loop through subjects
 for thisSubj = 1:numSubjects
     subjID = thisSubj;
     
-    if numTrialsCompleted(subjID) > 200 && numTrialsCompleted(subjID) <= 250 && finalScores(subjID)>194
+    if numTrialsCompleted(subjID) > minNumTrials && numTrialsCompleted(subjID) <= maxNumTrials && finalScores(subjID) > scoreCutoff
         
         % Get the subject's index
         if thisSubj < length(subjMarkers)
