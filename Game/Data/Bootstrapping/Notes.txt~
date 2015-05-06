@@ -1,0 +1,52 @@
+HOW TO RUN BOOTSTRAPPING
+
+(1) Create "Bootstrapping" folder within folder containing relevant ".RData" file
+(2) Create "model" (or model_all, etc.) folder within the bootstrapping folder
+(3) Set Bootstrap.sh accordingly
+(4) Use this q-sub command: qsub -t 1-250 -o /dev/null -e /dev/null Bootstrap.sh
+(5) Set ParseBootstrap.R correctly, and paste it into an R shell
+(6) Record here!
+
+BEHAVIORAL
+
+Baseline: 
+
+- model: 0/1000
+- model_all: 0/1000
+
+WithA0:
+
+- model: 0/1000
+- model_all:
+
+2-trial-type:
+- model: 0/1000
+- model_incog: 750/1000
+- model_comb:
+- model_all:
+
+SIMULATION
+
+Baseline - no MF-goal:
+
+- model:
+- model_all:
+
+Baseline - with MF-goal:
+
+- model:
+- model_all:
+
+2 trial type - no MF-goal:
+
+- model:
+- model_incog:
+- model_comb:
+- model_all:
+
+2 trial type - with MF-goal:
+
+- model:
+- model_incog:
+- model_comb:
+- model_all:
