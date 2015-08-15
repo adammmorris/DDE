@@ -1,12 +1,14 @@
 %% ParseGridOutput
 
-path = '';
+path = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v1\SubjFits\';
 numSubjects = length(subjMarkers);
-params = [];
+optParams = [];
+good = false(numSubjects,1);
 
 for i = 1:numSubjects
     name = [path 'Params_Subj' num2str(i) '.txt'];
     if exist(name,'file')
-        params(end+1,:) = csvread([path 'Params_Start' num2str(i) '.txt']);
+        good(i) = true;
+        optParams(end+1,:) = csvread(name);
     end
 end

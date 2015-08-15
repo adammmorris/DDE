@@ -26,7 +26,7 @@ end
 % [earnings_MFG,results_MFG] = runModel_daw_v6([params(:,1:3) repmat([1 0],numSubjects,1)]);
 
 [finalScores,results] = runModel_daw_v6(params);
-% 
+
 id = results(:,1);
 Type = results(:,2);
 Opt1 = results(:,3);
