@@ -1,0 +1,3 @@
+Fit('C:\Personal\Psychology\Projects\DDE\git\Game\Data\dawstage2\v2\data_fitting.mat','C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v1\SubjFits',1)
+
+Fit('C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v1\SimData.mat','C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\board_daw_fit.mat','C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v1\SubjFits',1,1)

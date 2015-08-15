@@ -1,13 +1,9 @@
-function Fit(datapath,savepath,tasknum)
+function Fit(datapath,boardpath,savepath,numStarts,tasknum)
 %% Load data
 load(datapath);
 
 %% Set up
-boardpath = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\board_daw_fit.mat';
-
-numStarts = 1;
-%numSubjects = length(subjMarkers);
-numSubjects = 3;
+numSubjects = length(subjMarkers);
 
 % tasknum is from 1 to numSubjects
 if (tasknum < 1 || tasknum > numSubjects)
