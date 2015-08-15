@@ -1,0 +1,4 @@
+GOAL MANIPULATION
+
+- Run general ProcessRealData, then run specific ProcessData_GoalManip. Save data.
+- Set CriticalTrials, run it
