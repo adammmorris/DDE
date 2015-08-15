@@ -2,22 +2,10 @@ function Fit(datapath,savepath,tasknum)
 %% Load data
 load(datapath);
 
-%% Prep data
-[Opt1,Opt2] = convertOptNumToOptions(OptNum);
-
-% Convert S2 to 2:4 instead of 1:5
-S2(S2==1 | S2==3) = 2;
-S2(S2==2 | S2==4) = 3;
-S2(S2==5) = 4;
-
-% Convert Action2 to 1:2 instead of 1:6
-Action2 = mod(Action2,2);
-Action2(Action2==0) = 2;
-
 %% Set up
 boardpath = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\board_daw_fit.mat';
 
-numStarts = 100;
+numStarts = 1;
 %numSubjects = length(subjMarkers);
 numSubjects = 3;
 
@@ -57,5 +45,5 @@ end
 
 [~,bestStart] = min(lik);
 name = [savepath '/Params_Subj' num2str(tasknum) '.txt'];
-csvwrite(name,[lik(bestStart) optParams(bestStart)]);
+csvwrite(name,[lik(bestStart) optParams(bestStart,:)]);
 end

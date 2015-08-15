@@ -1,7 +1,7 @@
 %% Collect simulated data
 
 % Get data from random 'participants'
-numSubjects = 500;
+numSubjects = 100;
 
 % Set up their parameters
 params = zeros(numSubjects,5);
@@ -21,21 +21,22 @@ parfor thisSubj = 1:numSubjects
 end
 
 % Run them all!
-[earnings_MF,results_MF] = runModel_daw_v6([params(:,1:3) repmat([0 0],numSubjects,1)]);
-[earnings_MB,results_MB] = runModel_daw_v6([params(:,1:3) repmat([0 1],numSubjects,1)]);
-[earnings_MFG,results_MFG] = runModel_daw_v6([params(:,1:3) repmat([1 0],numSubjects,1)]);
+% [earnings_MF,results_MF] = runModel_daw_v6([params(:,1:3) repmat([0 0],numSubjects,1)]);
+% [earnings_MB,results_MB] = runModel_daw_v6([params(:,1:3) repmat([0 1],numSubjects,1)]);
+% [earnings_MFG,results_MFG] = runModel_daw_v6([params(:,1:3) repmat([1 0],numSubjects,1)]);
 
-% [finalScores,results] = runModel_daw_v6(params);
+[finalScores,results] = runModel_daw_v6(params);
 % 
-% id = results(:,1);
-% Type = results(:,2);
-% Opt1 = results(:,3);
-% Opt2 = results(:,4);
-% Action = results(:,5);
-% S2 = results(:,6);
-% Action2 = results(:,7);
-% Re = results(:,8);
-% round1 = results(:,9);
-% Crit = results(:,10);
-% 
-% numTrialsCompleted = 175*ones(numSubjects,1);
+id = results(:,1);
+Type = results(:,2);
+Opt1 = results(:,3);
+Opt2 = results(:,4);
+Action = results(:,5);
+S2 = results(:,6);
+Action2 = results(:,7);
+Re = results(:,8);
+round1 = results(:,9);
+Crit = results(:,10);
+
+numTrialsCompleted = 175*ones(numSubjects,1);
+subjMarkers = getSubjMarkers(id);
