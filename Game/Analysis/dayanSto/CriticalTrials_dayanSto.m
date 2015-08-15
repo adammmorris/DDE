@@ -19,6 +19,7 @@ subjMarkers = getSubjMarkers(id);
 numSubjects = length(subjMarkers);
 
 NUMBERS = [16 21];
+numOptions = length(unique(OptNum));
 
 numDataPoints = length(id);
 
@@ -28,7 +29,6 @@ subjIDs = zeros(numDataPoints,1);
 choices = zeros(numDataPoints,1); % 1 is corresponding action, 0 is not
 keep = false(numDataPoints,1);
 
-numOptions = length(unique(OptNum));
 
 %% Calculate stuff
 

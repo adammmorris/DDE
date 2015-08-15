@@ -20,10 +20,16 @@ numSubjects = length(subjMarkers);
 
 numDataPoints = length(id);
 
-rewards = zeros(numDataPoints,1);
+NUMBERS = [16 21];
+
+rewards1 = zeros(numDataPoints,1);
+rewards2 = zeros(numDataPoints,1);
 subjIDs = zeros(numDataPoints,1);
+stay = zeros(numDataPoints,1);
 choices = zeros(numDataPoints,1); % 1 is corresponding action, 0 is not
 keep = false(numDataPoints,1);
+
+numOptions = length(unique(OptNum));
 
 %% Calculate stuff
 for thisSubj = 1:numSubjects
@@ -35,41 +41,30 @@ for thisSubj = 1:numSubjects
     else
         index = subjMarkers(thisSubj):length(id);
     end
+
+    novel = true(20,1);
     
     if numTrialsCompleted(subjID) > minNumTrials && numTrialsCompleted(subjID) <= maxNumTrials && finalScores(subjID) > scoreCutoff
         for thisRound = index
-            if round1(thisRound) > practiceCutoff && Action(thisRound-1) ~= -1 && Action2(thisRound-1) == 1 && thisRound < index(end)
-                if Action(thisRound-1) ~= Action(thisRound) % if we stayed/switched..
-                    keep(thisRound) = true;
-                    rewards(thisRound) = Re(thisRound-1);
-                    subjIDs(thisRound) = id(thisRound+1);
-                    choices(thisRound) = Action(thisRound-1) == Action(thisRound+1);
-                end
+            if round1(thisRound) > practiceCutoff && Action(thisRound-1) ~= -1 && Action2(thisRound-1) == 1 && thisRound < index(end) && (novel(OptNum(thisRound)) && novel(NUMBERS(Action(thisRound-1)+1)-OptNum(thisRound)))
+                stay(thisRound) = Action(thisRound-1) == Action(thisRound);
+                keep(thisRound) = true;
+                rewards1(thisRound) = Re(thisRound-1);
+                rewards2(thisRound) = Re(thisRound);
+                subjIDs(thisRound) = id(thisRound+1);
+                choices(thisRound) = Action(thisRound-1) == Action(thisRound+1);
             end
+            
+            novel(OptNum(thisRound)) = false;
         end
     end
 end
 
-%% Write t-test
-csvwrite('Parsed_ttests.csv',[rewards(keep) choices(keep) subjIDs(keep)]);
-
-%% Write models
-% For the models, we need to drop people who made the same choice
-%   every critical trial
-keep_models = keep;
-% subjIDs_unique = unique(id);
-% for i = 1:numSubjects
-%     if length(unique(choices(keep & id==subjIDs_unique(i))))==1, keep_models(id==subjIDs_unique(i)) = false; end
-% end
-
-% Grand mean center
-rewards(keep_models) = rewards(keep_models) - mean(rewards(keep_models));
-csvwrite('Parsed_models.csv',[rewards(keep_models) choices(keep_models) subjIDs(keep_models)]);
+%% Write
+csvwrite('Parsed_WSLS.csv',[rewards1(keep) rewards2(keep) stay(keep) choices(keep) subjIDs(keep)]);
 
 clear i; clear distance_cutoff; clear distance_cutoff_MB; clear distance_cutoff_MF; clear gamma; clear index; clear maxNumTrials; clear minNumTrials; clear numDataPoints; clear subjID; clear subjIDs_unique; clear thisRound; clear thisSubj; clear unlikely;
 
 %% Other stuff?
 length(unique(subjIDs(keep)))
 sum(keep)
-length(unique(subjIDs(keep_models)))
-sum(keep_models)
