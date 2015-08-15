@@ -11,8 +11,8 @@ parfor thisSubj = 1:numSubjects
     elig = rand()*(1/2) + .5;
     temp = rand()*(1/2)+1;
     
-    w_MFG = rand(); % model-based
-    %w_MFG = 0;
+    %w_MFG = rand(); % model-based
+    w_MFG = 0;
     w_MB = rand(); % dumb model-free
     w_MF = rand(); % goal-learner
 

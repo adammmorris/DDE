@@ -1,2 +1,3 @@
 v1: Fitting to both Action & Action2, with GL. 75% correlation overall but only 25% in MFG parameter. 
-v2: Fitting to only Action, with GL.
+v2: Fitting to only Action, with GL. Same.
+v3: Fitting to both Action & Action2, without GL.

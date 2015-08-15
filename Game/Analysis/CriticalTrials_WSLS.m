@@ -43,7 +43,7 @@ for thisSubj = 1:numSubjects
             chosenAction = Action(thisRound-1);
             chosenAction_cor = getCorrespondingAction(chosenAction,1);
             
-            if round1(thisRound) > practiceCutoff && S2(thisRound-1) == 6 && ~any(chosenAction == [Opt1(thisRound) Opt2(thisRound)]) && any(chosenAction_cor == [Opt1(thisRound) Opt2(thisRound)]) && ~any(chosenAction == [Opt1(thisRound+1) Opt2(thisRound+1)]) && any(chosenAction_cor == [Opt1(thisRound+1) Opt2(thisRound+1)]) && thisRound < index(end)
+            if round1(thisRound) > practiceCutoff && Crit(thisRound) == 1 && ~any(chosenAction == [Opt1(thisRound+1) Opt2(thisRound+1)]) && any(chosenAction_cor == [Opt1(thisRound+1) Opt2(thisRound+1)])
                 keep(thisRound) = true;
                 stay(thisRound) = Action(thisRound) == chosenAction_cor; % if we stayed/switched..
                 rewards1(thisRound) = Re(thisRound-1);
@@ -55,10 +55,7 @@ for thisSubj = 1:numSubjects
     end
 end
 
-%% Write model
-% Grand mean center
-% rewards1(keep) = rewards1(keep) - mean(rewards1(keep));
-% rewards2(keep) = rewards2(keep) - mean(rewards2(keep));
+%% Write stuff
 csvwrite('Parsed_WSLS.csv',[rewards1(keep) rewards2(keep) stay(keep) choices(keep) subjIDs(keep)]);
 
 clear i; clear distance_cutoff; clear distance_cutoff_MB; clear distance_cutoff_MF; clear gamma; clear index; clear maxNumTrials; clear minNumTrials; clear numDataPoints; clear subjID; clear subjIDs_unique; clear thisRound; clear thisSubj; clear unlikely;

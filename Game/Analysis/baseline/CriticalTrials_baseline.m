@@ -8,7 +8,7 @@ practiceCutoff = 75;
 % If using 1 trial type, set it to 194
 % If using 2 trial types, set it to 126
 % If you want to stop using this toss criteria, set it to 0.
-scoreCutoff = 0;
+scoreCutoff = -realmax;
 
 % Trial completion cutoffs
 minNumTrials = 200; % I usually set this to 50 less than the total number of rounds

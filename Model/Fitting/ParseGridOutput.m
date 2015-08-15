@@ -1,6 +1,6 @@
 %% ParseGridOutput
 
-path = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v1\SubjFits\';
+path = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v2\SubjFits\';
 numSubjects = length(subjMarkers);
 optParams = [];
 good = false(numSubjects,1);
