@@ -1,4 +1,4 @@
-function Fit_null(datapath,boardpath,savepath,numStarts,tasknum)
+function Fit_null(datapath,boardpath,savepath,numStarts,practiceCutoff,tasknum)
 %% Load data
 load(datapath);
 
@@ -36,7 +36,7 @@ for thisStart = 1:numStarts
     options = psoptimset('CompleteSearch','on','SearchMethod',{@searchlhs});
 
     % Do patternsearch
-    [optParams(thisStart,:),lik(thisStart),~] = patternsearch(@(params) getLikelihood_daw([params(1:3) 0 params(4)],boardpath,Opt1(index),Opt2(index),Action(index),S2(index),Action2(index),Re(index),round1(index)),starts(thisStart,:),[],[],[],[],bounds(1,:),bounds(2,:),options);
+    [optParams(thisStart,:),lik(thisStart),~] = patternsearch(@(params) getLikelihood_daw([params(1:3) 0 params(4)],boardpath,practiceCutoff,Opt1(index),Opt2(index),Action(index),S2(index),Action2(index),Re(index),round1(index)),starts(thisStart,:),[],[],[],[],bounds(1,:),bounds(2,:),options);
 end
 
 [~,bestStart] = min(lik);
