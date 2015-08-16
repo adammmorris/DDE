@@ -1,14 +1,13 @@
 %% Inputs
 % params: numAgents x [lr elig beta w_MF w_MB]
 
-function [negLL] = getLikelihood_daw(params, boardPath, realOpt1, realOpt2, realAction, realS2, realAction2, realRe, realRound)
+function [negLL] = getLikelihood_daw(params, boardPath, practiceCutoff, realOpt1, realOpt2, realAction, realS2, realAction2, realRe, realRound)
 
 %% Set board params
 load(boardPath);
 
 gamma = 1;
 numTotalRounds = size(realOpt1,1);
-practiceCutoff = 75;
 
 transition_probs = transition_probs0;
 likelihood = 0;
@@ -66,12 +65,12 @@ for thisRound = 1:numTotalRounds
         Q_HMB_options(state2,S2_actions) = squeeze(transition_probs(state2,S2_actions,:)) * Q_HMB_options(:,S3_action);
         
         % Get weighted Q
-        %Q_weighted = w_MFG*Q_MFG_options(state2,S2_actions) + w_MB*Q_HMB_options(state2,S2_actions) + (1-w_MFG-w_MB)*Q_MF(state2,S2_actions);
+        Q_weighted = w_MFG*Q_MFG_options(state2,S2_actions) + w_MB*Q_HMB_options(state2,S2_actions) + (1-w_MFG-w_MB)*Q_MF(state2,S2_actions);
         
         % Make choice
-        %probs = exp(beta*Q_weighted) / sum(exp(beta*Q_weighted));
+        probs = exp(beta*Q_weighted) / sum(exp(beta*Q_weighted));
         choice2 = realAction2(thisRound);
-        %likelihood = likelihood + log(probs(S2_actions == choice2));
+        likelihood = likelihood + log(probs(S2_actions == choice2));
         
         % Transition
         state3 = likelyTransition(state2,choice2);

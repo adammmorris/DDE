@@ -45,7 +45,7 @@ for thisSubj = 1:numSubjects
 
     if numTrialsCompleted(subjID) > minNumTrials && numTrialsCompleted(subjID) <= maxNumTrials && finalScores(subjID) > scoreCutoff
         for thisRound = index
-            if round1(thisRound) > practiceCutoff && Crit(thisRound) == 1 && Action(thisRound-1) ~= -1 && thisRound < index(end) %&& (novel(OptNum(thisRound)) && novel(NUMBERS(Action(thisRound-1)+1)-OptNum(thisRound)))
+            if round1(thisRound) > practiceCutoff && Crit(thisRound) == 1 && Action(thisRound-1) ~= -1 && thisRound < index(end) && (novel(OptNum(thisRound)) && novel(NUMBERS(Action(thisRound-1)+1)-OptNum(thisRound)))
                 stay(thisRound) = Action(thisRound-1) == Action(thisRound); % if we stayed/switched..
                 keep(thisRound) = true;
                 rewards1(thisRound) = Re(thisRound-1);

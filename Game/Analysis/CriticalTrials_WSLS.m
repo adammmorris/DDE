@@ -43,7 +43,7 @@ for thisSubj = 1:numSubjects
             chosenAction = Action(thisRound-1);
             chosenAction_cor = getCorrespondingAction(chosenAction,1);
             
-            if round1(thisRound) > practiceCutoff && Crit(thisRound) == 1 && ~any(chosenAction == [Opt1(thisRound+1) Opt2(thisRound+1)]) && any(chosenAction_cor == [Opt1(thisRound+1) Opt2(thisRound+1)])
+            if round1(thisRound) > practiceCutoff && Crit(thisRound) == 1 && S2(thisRound) ~= 5 && ~any(chosenAction == [Opt1(thisRound+1) Opt2(thisRound+1)]) && any(chosenAction_cor == [Opt1(thisRound+1) Opt2(thisRound+1)])
                 keep(thisRound) = true;
                 stay(thisRound) = Action(thisRound) == chosenAction_cor; % if we stayed/switched..
                 rewards1(thisRound) = Re(thisRound-1);
