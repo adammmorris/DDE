@@ -1,18 +1,12 @@
 %% ParseGridOutput
 numSubjects = 270;
 
-% path_GLagents_GLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v1\SubjFits\';
-% path_GLagents_NGLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v1\SubjFits_null\';
-% path_NGLagents_GLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v3\SubjFits\';
-% path_NGLagents_NGLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v3\SubjFits_null\';
-path_GLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Game\Data\dawstage2\v2\Fitting\v1\SubjFits\';
-path_NGLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Game\Data\dawstage2\v2\Fitting\v1\SubjFits_null\';
-% params_GLagents_GLmodel = [];
-% params_GLagents_NGLmodel = [];
-% params_NGLagents_GLmodel = [];
-% params_NGLagents_NGLmodel = [];
-params_GLmodel = [];
-params_NGLmodel = [];
+%path_GLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v4\NGLagents\SubjFits\';
+%path_NGLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v4\NGLagents\SubjFits_null\';
+path_GLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Game\Data\dawstage2\v2\Fitting\v2\SubjFits\';
+path_NGLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Game\Data\dawstage2\v2\Fitting\v2\SubjFits_null\';
+params_GLmodel = zeros(numSubjects,6);
+params_NGLmodel = zeros(numSubjects,5);
 good = false(numSubjects,1);
 
 for i = 1:numSubjects
@@ -27,8 +21,8 @@ for i = 1:numSubjects
 %         params_GLagents_NGLmodel(end+1,:) = csvread(name2);
 %         params_NGLagents_GLmodel(end+1,:) = csvread(name3);
 %         params_NGLagents_NGLmodel(end+1,:) = csvread(name4);
-        params_GLmodel(end+1,:) = csvread(name1);
-        params_NGLmodel(end+1,:) = csvread(name2);
+        params_GLmodel(i,:) = csvread(name1);
+        params_NGLmodel(i,:) = csvread(name2);
         good(i) = true;
     end
 end

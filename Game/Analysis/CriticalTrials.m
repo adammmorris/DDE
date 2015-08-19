@@ -2,7 +2,7 @@
 % This script gathers the data for a logistic regression analysis.
 
 %% Parameters to set
-practiceCutoff = 1;
+practiceCutoff = 0;
 
 % Final score cutoffs
 % If using 1 trial type, set it to 194
@@ -37,7 +37,7 @@ for thisSubj = 1:numSubjects
     end
     
     if numTrialsCompleted(subjID) > minNumTrials && numTrialsCompleted(subjID) <= maxNumTrials && finalScores(subjID) > scoreCutoff
-        for thisRound = index
+        for thisRound = index(2:end)
             if round1(thisRound) > practiceCutoff && Crit(thisRound) == 1
                 keep(thisRound) = true;
                 rewards(thisRound) = Re(thisRound-1);
@@ -65,5 +65,5 @@ clear i; clear distance_cutoff; clear distance_cutoff_MB; clear distance_cutoff_
 %% Other stuff?
 length(unique(subjIDs(keep)))
 sum(keep)
-length(unique(subjIDs(keep_models)))
-sum(keep_models)
+% length(unique(subjIDs(keep_models)))
+% sum(keep_models)

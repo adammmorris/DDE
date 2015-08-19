@@ -48,8 +48,8 @@ unlikelyTransition = 4;
 % numTotalRounds x numStates x numAgents
 rewards = zeros(numTotalRounds,numStates,numAgents);
 stdShift = 2;
-rewardRange_hi = 8;
-rewardRange_lo = -8;
+rewardRange_hi = 5;
+rewardRange_lo = -4;
 
 for thisAgent = 1:numAgents
     rewards(numPracticeRounds+1,S3_states,thisAgent) = randsample(rewardRange_lo:rewardRange_hi,length(S3_states),true);

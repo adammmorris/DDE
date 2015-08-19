@@ -11,8 +11,8 @@ parfor thisSubj = 1:numSubjects
     elig = rand()*(1/2) + .5;
     temp = rand()*(1/2)+1;
     
-    %w_MFG = rand(); % model-based
-    w_MFG = 0;
+    w_MFG = rand(); % model-based
+    %w_MFG = 0;
     w_MB = rand(); % dumb model-free
     w_MF = rand(); % goal-learner
 
@@ -21,11 +21,11 @@ parfor thisSubj = 1:numSubjects
 end
 
 % Run them all!
-% [earnings_MF,results_MF] = runModel_daw_v6([params(:,1:3) repmat([0 0],numSubjects,1)]);
-% [earnings_MB,results_MB] = runModel_daw_v6([params(:,1:3) repmat([0 1],numSubjects,1)]);
-% [earnings_MFG,results_MFG] = runModel_daw_v6([params(:,1:3) repmat([1 0],numSubjects,1)]);
+% [earnings_MF,results_MF] = runModel_daw_v7([params(:,1:3) repmat([0 0],numSubjects,1)]);
+% [earnings_MB,results_MB] = runModel_daw_v7([params(:,1:3) repmat([0 1],numSubjects,1)]);
+% [earnings_MFG,results_MFG] = runModel_daw_v7([params(:,1:3) repmat([1 0],numSubjects,1)]);
 
-[finalScores,results] = runModel_daw_v6(params);
+[finalScores,results] = runModel_daw_v7(params);
 
 id = results(:,1);
 Type = results(:,2);

@@ -1,14 +1,14 @@
 %% Inputs
 % params: numAgents x [lr elig beta w_MF w_MB]
 
-function [earnings, results] = runModel_daw_v6(params, boardPath)
+function [earnings, results] = runModel_daw_v7(params, boardPath)
 
 %% Defaults
 if nargin < 2
     boardPath = 'C:\Personal\Psychology\Projects\DDE\git\Model\board_daw.mat';
 end
 if nargin < 1
-    params = repmat([.2 .95 1 0 1],5,1);
+    params = repmat([.2 .95 1 1 0],5,1);
 end
 
 %% Set board params
@@ -184,8 +184,13 @@ for thisAgent = 1:numAgents
             % Update MFonMB
             % Infer option chosen
             [~,chosenOption] = max(squeeze(transition_probs(state1,choice1,subgoals)));
-            Q_MFG_options(state2,choice2) = Q_MFG_options(state2,choice2) + lr*(reward-Q_MFG_options(state2,choice2));
-            Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*(reward-Q_MFG_options(state1,chosenOption));
+            
+            delta = gamma*max(Q_MFG_options(state2,:)) - Q_MFG_options(state1,chosenOption);
+            Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*delta;
+            
+            delta = reward-Q_MFG_options(state2,choice2);
+            Q_MFG_options(state2,choice2) = Q_MFG_options(state2,choice2) + lr*delta;
+            Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*elig*delta;
             
             % Update earnings
             earnings(thisAgent) = earnings(thisAgent) + reward;

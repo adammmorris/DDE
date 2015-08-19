@@ -47,12 +47,12 @@ for thisSubj = 1:numSubjects
     novel = true(20,1);
     
     if numTrialsCompleted(subjID) > minNumTrials && numTrialsCompleted(subjID) <= maxNumTrials && finalScores(subjID) > scoreCutoff
-        for thisRound = index
-            if round1(thisRound) > practiceCutoff && Action(thisRound) ~= -1 && Action2(thisRound) == 1 %&& (novel(OptNum(thisRound)) && novel(NUMBERS(Action(thisRound-1)+1)-OptNum(thisRound)))
+        for thisRound = index(2:end)
+            if round1(thisRound) > practiceCutoff && Action(thisRound) ~= -1 && Action2(thisRound) == 1 && (novel(OptNum(thisRound)) && novel(NUMBERS(Action(thisRound-1)+1)-OptNum(thisRound)))
                 keep(thisRound) = true;
                 rewards(thisRound) = Re(thisRound-2);
                 subjIDs(thisRound) = id(thisRound);
-                choices(thisRound) = Action(thisRound)==Action(thisRound-2);
+                choices(thisRound) = Action(thisRound)==Action(thisRound-1);
                 
                 %foundCondition = (Action(thisRound-1) == 0) * 2; % if 16, value of triangle (2); if 21, value of square (0)
                 foundCondition = Action(thisRound-1)==0; % if 16 (aka 0), 21 (aka 1); if 21 (aka 1), 0 (aka 16)

@@ -96,8 +96,13 @@ for thisRound = 1:numTotalRounds
         % Update MFonMB
         % Infer option chosen
         [~,chosenOption] = max(squeeze(transition_probs(state1,choice1,subgoals)));
-        Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*(reward - Q_MFG_options(state1,chosenOption));
-        Q_MFG_options(state2,choice2) = Q_MFG_options(state2,choice2) + lr*(reward-Q_MFG_options(state2,choice2));
+        
+        delta = gamma*max(Q_MFG_options(state2,:)) - Q_MFG_options(state1,chosenOption);
+        Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*delta;
+        
+        delta = reward-Q_MFG_options(state2,choice2);
+        Q_MFG_options(state2,choice2) = Q_MFG_options(state2,choice2) + lr*delta;
+        Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*elig*delta;
     end
 end
 
