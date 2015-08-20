@@ -2,7 +2,7 @@
 # Adam Morris
 # 10/22/2014
 
-#setwd("C:/Personal/Psychology/Projects/DDE/git/Game/Data/baseline");
+setwd("C:/Personal/Psychology/Projects/DDE/git/Game/Data/baseline");
 
 require(lme4);
 #require(ggplot2);

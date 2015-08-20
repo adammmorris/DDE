@@ -24,7 +24,7 @@ w_MB = params(5);
 Q_MF = zeros(numStates,numActions); % flat MF
 Q_HMB_options = zeros(numStates,numOptions); % hierarchical MB option values
 Q_MFG_options = zeros(numStates,numOptions); % hierarchical MF option values
-Q_H_actions = zeros(numOptions,numActions); % hierarchical intra-option action values
+P_H_actions = zeros(numOptions,numActions); % hierarchical intra-option action values
 
 %% Go through rounds
 for thisRound = 1:numTotalRounds
@@ -46,10 +46,13 @@ for thisRound = 1:numTotalRounds
         % of each state times the probability of an action getting us
         % to that state.
         % ((numCurActions x numStates) * (numStates x numOptions))' = numOptions x numCurActions
-        Q_H_actions(:,curActions) = (squeeze(transition_probs(state1,curActions,:)) * subgoalRewards)';
-        
+        for i=1:numOptions
+            [~,b] = max(squeeze(transition_probs(state1,curActions,subgoals(i))));
+            P_H_actions(i,curActions) = curActions==curActions(b);
+        end
+            
         % Get weighted Q
-        Q_weighted = w_MFG*Q_MFG_options(state1,:)*Q_H_actions(:,curActions) + w_MB*Q_HMB_options(state1,:)*Q_H_actions(:,curActions) + (1-w_MFG-w_MB)*Q_MF(state1,curActions);
+        Q_weighted = w_MFG*Q_MFG_options(state1,:)*P_H_actions(:,curActions) + w_MB*Q_HMB_options(state1,:)*P_H_actions(:,curActions) + (1-w_MFG-w_MB)*Q_MF(state1,curActions);
         
         % Make choice
         probs = exp(beta*Q_weighted) / sum(exp(beta*Q_weighted));

@@ -52,18 +52,12 @@ end
 csvwrite('Parsed_ttests.csv',[rewards(keep) choices(keep) subjIDs(keep)]);
 
 %% Write models
-% For the models, we need to drop people who made the same choice
-%   every critical trial
-keep_models = keep;
-
 % Grand mean center
-rewards(keep_models) = rewards(keep_models) - mean(rewards(keep_models));
-csvwrite('Parsed_models.csv',[rewards(keep_models) choices(keep_models) subjIDs(keep_models)]);
+rewards(keep) = rewards(keep) - mean(rewards(keep));
+csvwrite('Parsed_models.csv',[rewards(keep) choices(keep) subjIDs(keep)]);
 
 clear i; clear distance_cutoff; clear distance_cutoff_MB; clear distance_cutoff_MF; clear gamma; clear index; clear maxNumTrials; clear minNumTrials; clear numDataPoints; clear subjID; clear subjIDs_unique; clear thisRound; clear thisSubj; clear unlikely;
 
 %% Other stuff?
 length(unique(subjIDs(keep)))
 sum(keep)
-% length(unique(subjIDs(keep_models)))
-% sum(keep_models)

@@ -1,14 +1,14 @@
 %% Inputs
 % params: numAgents x [lr elig beta w_MF w_MB]
 
-function [earnings, results] = runModel_daw_v6(params, boardPath)
+function [earnings, results] = runModel_daw_v8(params, boardPath)
 
 %% Defaults
 if nargin < 2
     boardPath = 'C:\Personal\Psychology\Projects\DDE\git\Model\board_daw.mat';
 end
 if nargin < 1
-    params = repmat([.2 .95 1 0 1],5,1);
+    params = repmat([.2 .95 1 1 0],5,1);
 end
 
 %% Set board params
@@ -48,7 +48,7 @@ for thisAgent = 1:numAgents
     Q_MF = zeros(numStates,numActions); % flat MF
     Q_HMB_options = zeros(numStates,numOptions); % hierarchical MB option values
     Q_MFG_options = zeros(numStates,numOptions); % hierarchical MF option values
-    Q_H_actions = zeros(numOptions,numActions); % hierarchical intra-option action values
+    P_H_actions = zeros(numOptions,numActions); % hierarchical intra-option action values
     
     prevChoice = 1;
     
@@ -120,10 +120,13 @@ for thisAgent = 1:numAgents
             % of each state times the probability of an action getting us
             % to that state.
             % ((numCurActions x numStates) * (numStates x numOptions))' = numOptions x numCurActions
-            Q_H_actions(:,curActions) = (squeeze(transition_probs(state1,curActions,:)) * subgoalRewards)';
+            for i=1:numOptions
+                [~,b] = max(squeeze(transition_probs(state1,curActions,subgoals(i))));
+                P_H_actions(i,curActions) = curActions==curActions(b);
+            end
             
             % Get weighted Q
-            Q_weighted = w_MFG*Q_MFG_options(state1,:)*Q_H_actions(:,curActions) + w_MB*Q_HMB_options(state1,:)*Q_H_actions(:,curActions) + (1-w_MFG-w_MB)*Q_MF(state1,curActions);
+            Q_weighted = w_MFG*Q_MFG_options(state1,:)*P_H_actions(:,curActions) + w_MB*Q_HMB_options(state1,:)*P_H_actions(:,curActions) + (1-w_MFG-w_MB)*Q_MF(state1,curActions);
             
             % Make choice
             probs = exp(beta*Q_weighted) / sum(exp(beta*Q_weighted));
@@ -185,8 +188,8 @@ for thisAgent = 1:numAgents
             % Infer option chosen
             [~,chosenOption] = max(squeeze(transition_probs(state1,choice1,subgoals)));
             
-            delta = gamma*max(Q_MFG_options(
-            Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*(reward - Q_MFG_options(state1,chosenOption));
+            delta = gamma*max(Q_MFG_options(state2,:)) - Q_MFG_options(state1,chosenOption);
+            Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*delta;
             
             delta = reward-Q_MFG_options(state2,choice2);
             Q_MFG_options(state2,choice2) = Q_MFG_options(state2,choice2) + lr*delta;
