@@ -1,7 +1,7 @@
 %% Collect simulated data
 
 % Get data from random 'participants'
-numSubjects = 100;
+numSubjects = 500;
 
 % Set up their parameters
 params = zeros(numSubjects,5);
@@ -21,11 +21,11 @@ for thisSubj = 1:numSubjects
 end
 
 % Run them all!
-% [earnings_MF,results_MF] = runModel_daw_v8([params(:,1:3) repmat([0 0],numSubjects,1)]);
-% [earnings_MB,results_MB] = runModel_daw_v8([params(:,1:3) repmat([0 1],numSubjects,1)]);
-% [earnings_MFG,results_MFG] = runModel_daw_v8([params(:,1:3) repmat([1 0],numSubjects,1)]);
+% [earnings_MF,results_MF] = runModel_daw_v9([params(:,1:3) repmat([0 0],numSubjects,1)]);
+% [earnings_MB,results_MB] = runModel_daw_v9([params(:,1:3) repmat([0 1],numSubjects,1)]);
+% [earnings_MFG,results_MFG] = runModel_daw_v9([params(:,1:3) repmat([1 0],numSubjects,1)]);
 
-[finalScores,results] = runModel_daw_v8(params);
+[finalScores,results] = runModel_daw_v9(params);
 
 id = results(:,1);
 Type = results(:,2);
