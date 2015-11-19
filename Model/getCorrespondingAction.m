@@ -2,7 +2,7 @@
 % This function returns the 'corresponding' action to an inputted action,
 %   for a given trial type.
 
-function [corAction] = getCorrespondingAction(action,trialType)
+function [corAction] = getCorrespondingAction(action)
 if action == 1 % blue
     corAction = 3;
 elseif action == 3 % blue

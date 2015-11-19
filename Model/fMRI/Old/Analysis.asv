@@ -1,0 +1,71 @@
+%% Set up subjects
+numSubjects = 100;
+
+% Set up their parameters
+params = zeros(numSubjects,5);
+for thisSubj = 1:numSubjects
+    % This is all very random
+    lr = rand();
+    elig = rand()*(1/2) + .5;
+    temp = rand()*(1/2)+1;
+    
+    w_MFG = rand(); % model-based
+    w_MB = rand(); % dumb model-free
+    w_MF = rand(); % goal-learner
+
+    weights = [w_MFG w_MB] / (w_MFG + w_MB + w_MF);
+    params(thisSubj,:) = [lr elig temp weights(1) weights(2)];
+end
+
+[~,~,~,PEs_1a] = runModel_scanner(params,'board_scanner1a.mat',1);
+% [~,~,~,PEs_1a_sum] = runModel_scanner_sum(params,'board_scanner1a_sum.mat',1);
+% [~,~,~,PEs_1b_sum] = runModel_scanner_sum(params,'board_scanner1b_sum.mat',1);
+% [~,~,~,PEs_2b] = runModel_scanner_sum(params,'board_scanner2b_sum.mat',0);
+[~,~,~,PEs_2b_mb] = runModel_scanner_sum(params,'board_scanner2b_sum.mat',1);
+
+%% 1a_sum
+figure
+name = '1a';
+doAnalysis(name,PEs_1a,params,1);
+
+% %% 1a_sum
+% name = '1a sum';
+% doAnalysis(name,PEs_1a_sum,params,2);
+% 
+% %% 1b_sum
+% name = '1b sum';
+% doAnalysis(name,PEs_1b_sum,params,3);
+% 
+% %% 2b
+% name = '2b';
+% doAnalysis(name,PEs_2b,params,4);
+
+%% 2b MB
+name = '2b';
+doAnalysis(name,PEs_2b_mb,params,2);
+
+%% Check out PEs
+PEs_1a_all = zeros(size(PEs_1a,1)*size(PEs_1a,3),3);
+PEs_2b_all = zeros(size(PEs_2b,1)*size(PEs_2b,3),3);
+for i=1:3
+    PEs_1a_all(:,i) = reshape(squeeze(PEs_1a(:,i,:)),size(PEs_1a_all,1),1);
+    PEs_2b_all(:,i) = reshape(squeeze(PEs_2b(:,i,:)),size(PEs_2b_all,1),1);
+end
+
+figure
+subplot(2,3,1)
+hist(PEs_1a_all(:,1)); axis([-5 5 0 3*10^4]); title('1a: MFG');
+subplot(2,3,2)
+hist(PEs_1a_all(:,2)); axis([-5 5 0 3*10^4]);  title('1a: MF');
+subplot(2,3,3)
+hist(PEs_1a_all(:,3)); axis([-5 5 0 3*10^4]); title('1a: MB');
+
+subplot(2,3,4)
+hist(PEs_2b_all(:,1)); axis([-5 5 0 3*10^4]); title('2b: MFG');
+subplot(2,3,5)
+hist(PEs_2b_all(:,2));axis([-5 5 0 3*10^4]); title('2b: MF');
+subplot(2,3,6)
+hist(PEs_2b_all(:,3)); axis([-5 5 0 3*10^4]); title('2b: MB');
+
+%% Clean up
+save('Analysis.mat');

@@ -2,17 +2,17 @@
 % This script gathers the data for a logistic regression analysis.
 
 %% Parameters to set
-practiceCutoff = 0;
+practiceCutoff = 75;
 
 % Final score cutoffs
 % If using 1 trial type, set it to 194
 % If using 2 trial types, set it to 126
 % If you want to stop using this toss criteria, set it to 0.
-scoreCutoff = -realmax;
+scoreCutoff = 0;
 
 % Trial completion cutoffs
-minNumTrials = 0; % I usually set this to 50 less than the total number of rounds
-maxNumTrials = 175; % this should be equal to the total number of rounds
+minNumTrials = 200; % I usually set this to 50 less than the total number of rounds
+maxNumTrials = 250; % this should be equal to the total number of rounds
 
 %% Initialize shit
 subjMarkers = getSubjMarkers(id);

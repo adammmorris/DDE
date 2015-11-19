@@ -3,7 +3,6 @@ path = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\board_daw_fit.mat'
 
 numActions = 4;
 numOptions = 2;
-TRIAL_TYPE = 1;
 numStates = 10; % remember to preserve the state # integrity
 
 S2_states = 2:4;

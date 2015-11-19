@@ -1,10 +1,10 @@
 %% ParseGridOutput
-numSubjects = 270;
+numSubjects = 100;
 
-%path_GLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v4\NGLagents\SubjFits\';
-%path_NGLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v4\NGLagents\SubjFits_null\';
-path_GLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Game\Data\dawstage2\v2\Fitting\v2\SubjFits\';
-path_NGLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Game\Data\dawstage2\v2\Fitting\v2\SubjFits_null\';
+path_GLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v6\NGLagents\SubjFits\';
+path_NGLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Model\Fitting\v6\NGLagents\SubjFits_null\';
+% path_GLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Game\Data\dawstage2\v2\Fitting\v5\SubjFits\';
+% path_NGLmodel = 'C:\Personal\Psychology\Projects\DDE\git\Game\Data\dawstage2\v2\Fitting\v5\SubjFits_null\';
 params_GLmodel = zeros(numSubjects,6);
 params_NGLmodel = zeros(numSubjects,5);
 good = false(numSubjects,1);

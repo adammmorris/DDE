@@ -32,13 +32,11 @@ c(mean(re_hi),sd(re_hi)/sqrt(length(re_hi)),mean(re_lo),sd(re_lo)/sqrt(length(re
 
 ## MODELS
 data_models = read.csv("Parsed_models.csv",header=FALSE);
-colnames(data_models) <- c("MFonMB","Foregone","Choice","Subj");
+colnames(data_models) <- c("MFonMB","Choice","Subj");
 
 data_crits_models = data_models;
 model = glmer(Choice~MFonMB+(1|Subj)+(0+MFonMB|Subj),family=binomial,data=data_crits_models);
 model_null = glmer(Choice~1+(1|Subj),family=binomial,data=data_crits_models);
-
-model2 = glmer(Choice~MFonMB+Foregone+(1|Subj)+(0+MFonMB+Foregone|Subj),family=binomial,data=data_crits_models);
 
 # Check convergence
 modelToCheck = model_all; # update this

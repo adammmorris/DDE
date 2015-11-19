@@ -18,7 +18,7 @@ maxNumTrials = 250; % this should be equal to the total number of rounds
 subjMarkers = getSubjMarkers(id);
 numSubjects = length(subjMarkers);
 
-NUMBERS = [16 21];
+NUMBERS = [16 40; 32 24];
 numOptions = length(unique(OptNum));
 
 numDataPoints = length(id);
@@ -43,33 +43,20 @@ for thisSubj = 1:numSubjects
         index = subjMarkers(thisSubj):length(id);
     end
     
-    novel = true(20,1);
+    novel = true(20,2);
     
     if numTrialsCompleted(subjID) > minNumTrials && numTrialsCompleted(subjID) <= maxNumTrials && finalScores(subjID) > scoreCutoff
         for thisRound = index
-            if round1(thisRound) > practiceCutoff && Crit(thisRound) == 1 && Action(thisRound-1) ~= -1 %&& (novel(OptNum(thisRound)) && novel(NUMBERS(Action(thisRound-1)+1)-OptNum(thisRound)))
+            if round1(thisRound) > practiceCutoff && Crit(thisRound) == 1 && Action(thisRound-1) ~= -1 && S2(thisRound-1) == 2 && Action2(thisRound-1) == 1 && (novel(OptNum(thisRound),numberSet(thisRound)) && novel(NUMBERS(numberSet(thisRound),Action(thisRound-1)+1)-OptNum(thisRound)))
                 keep(thisRound) = true;
                 rewards(thisRound) = Re(thisRound-1);
                 subjIDs(thisRound) = id(thisRound);
                 choices(thisRound) = Action(thisRound)==Action(thisRound-1);
-                
-                %foundCondition = (Action(thisRound-1) == 0) * 2; % if 16, value of triangle (2); if 21, value of square (0)
-                foundCondition = Action(thisRound-1)==0; % if 16 (aka 0), 21 (aka 1); if 21 (aka 1), 0 (aka 16)
-                found = 0;
-                counter = 1;
-                while found == 0 && (thisRound - counter) >= index(1)
-                    if Action(thisRound-counter) == foundCondition
-                        foregone(thisRound) = Re(thisRound-counter);
-                        found = 1;
-                    else
-                        counter = counter+1;
-                    end
-                end
             end
             
             % Every time we see a particular way of summing to 16 or 21,
             % cross it off the novel list
-            novel(OptNum(thisRound)) = false;
+            novel(OptNum(thisRound),numberSet(thisRound)) = false;
         end
     end
 end
@@ -82,8 +69,7 @@ keep_models = keep;
 
 % Grand mean center
 rewards(keep_models) = rewards(keep_models) - mean(rewards(keep_models));
-foregone(keep_models) = foregone(keep_models) - mean(foregone(keep_models));
-csvwrite('Parsed_models.csv',[rewards(keep_models) foregone(keep_models) choices(keep_models) subjIDs(keep_models)]);
+csvwrite('Parsed_models.csv',[rewards(keep_models) choices(keep_models) subjIDs(keep_models)]);
 
 clear i; clear distance_cutoff; clear distance_cutoff_MB; clear distance_cutoff_MF; clear gamma; clear index; clear maxNumTrials; clear minNumTrials; clear numDataPoints; clear subjID; clear subjIDs_unique; clear thisRound; clear thisSubj; clear unlikely;
 

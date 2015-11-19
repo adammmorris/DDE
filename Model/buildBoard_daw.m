@@ -1,6 +1,5 @@
 %%%%% Building experiment board %%%%%
 clear;
-path = 'C:\Personal\Psychology\Projects\DDE\git\Model\board_daw.mat';
 
 numAgents = 500;
 %numRounds = [75 175];
@@ -19,7 +18,7 @@ numStates = 10; % remember to preserve the state # integrity
 S2_states = 2:4;
 S2_actions = 1:2;
 S3_states = 5:10;
-S3_action = 1;
+S3_action = 1; % We treat stage 3 as having only 1 action (there's no actual stage 3 choice)
 
 %% Available actions
 % numTotalRounds x 2 x numAgents
@@ -27,7 +26,7 @@ availableActions = zeros(numTotalRounds,2,numAgents);
 
 for i = 1:numAgents
     opt1 = randi(4,numTotalRounds,1);
-    opt2 = getOtherAvailableAction(opt1,TRIAL_TYPE);
+    opt2 = getOtherAvailableAction(opt1);
     availableActions(:,:,i) = [opt1 opt2];
 end
 
@@ -99,4 +98,4 @@ for i=2:4
 end
 
 %% Save
-save(path);
+save('board_1B.mat');

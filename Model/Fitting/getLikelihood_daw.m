@@ -1,5 +1,5 @@
 %% Inputs
-% params: numAgents x [lr elig beta w_MF w_MB]
+% params: numAgents x [lr elig beta stay w_MF w_MB]
 
 function [negLL] = getLikelihood_daw(params, boardPath, practiceCutoff, realOpt1, realOpt2, realAction, realS2, realAction2, realRe, realRound)
 
@@ -17,8 +17,9 @@ likelihood = 0;
 lr = params(1);
 elig = params(2);
 beta = params(3);
-w_MFG = params(4);
-w_MB = params(5);
+stay = params(4);
+w_MFG = params(5);
+w_MB = params(6);
 
 %% Initialize models
 Q_MF = zeros(numStates,numActions); % flat MF
@@ -27,8 +28,11 @@ Q_MFG_options = zeros(numStates,numOptions); % hierarchical MF option values
 P_H_actions = zeros(numOptions,numActions); % hierarchical intra-option action values
 
 %% Go through rounds
+lastAction = 0;
+
 for thisRound = 1:numTotalRounds
     curActions = [realOpt1(thisRound) realOpt2(thisRound)];
+    
     
     if realRound(thisRound) > practiceCutoff
         %% STAGE 1
@@ -54,7 +58,7 @@ for thisRound = 1:numTotalRounds
         Q_weighted = w_MFG*Q_MFG_options(state1,:)*P_H_actions(:,curActions) + w_MB*Q_MB(state1,curActions) + (1-w_MFG-w_MB)*Q_MF(state1,curActions);
         
         % Make choice
-        probs = exp(beta*Q_weighted) / sum(exp(beta*Q_weighted));
+        probs = exp(beta*Q_weighted + stay*(curActions == lastAction)) / sum(exp(beta*Q_weighted));
         choice1 = realAction(thisRound);
         likelihood = likelihood + log(probs(curActions == choice1));
         
@@ -80,10 +84,10 @@ for thisRound = 1:numTotalRounds
         reward = realRe(thisRound);
         
         % Update flat MF (and bottom-level MB estimate)
-        delta = gamma*max(Q_MF(state2,:)) - Q_MF(state1,choice1);
+        delta = gamma*max(Q_MF(state2,S2_actions)) - Q_MF(state1,choice1);
         Q_MF(state1,choice1) = Q_MF(state1,choice1) + lr*delta;
         
-        delta = gamma*max(Q_MF(state3,:)) - Q_MF(state2,choice2);
+        delta = gamma*max(Q_MF(state3,S3_action)) - Q_MF(state2,choice2);
         Q_MF(state2,choice2) = Q_MF(state2,choice2) + lr*delta;
         Q_MF(state1,choice1) = Q_MF(state1,choice1) + lr*elig*delta;
         
@@ -98,12 +102,14 @@ for thisRound = 1:numTotalRounds
         % Infer option chosen
         [~,chosenOption] = max(squeeze(transition_probs(state1,choice1,subgoals)));
         
-        delta = gamma*max(Q_MFG_options(state2,:)) - Q_MFG_options(state1,chosenOption);
+        delta = gamma*max(Q_MFG_options(state2,S2_actions)) - Q_MFG_options(state1,chosenOption);
         Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*delta;
         
         delta = reward-Q_MFG_options(state2,choice2);
         Q_MFG_options(state2,choice2) = Q_MFG_options(state2,choice2) + lr*delta;
         Q_MFG_options(state1,chosenOption) = Q_MFG_options(state1,chosenOption) + lr*elig*delta;
+        
+        lastAction = choice1;
     end
 end
 

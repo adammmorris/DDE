@@ -48,7 +48,7 @@ for thisSubj = 1:numSubjects
     
     if numTrialsCompleted(subjID) > minNumTrials && numTrialsCompleted(subjID) <= maxNumTrials && finalScores(subjID) > scoreCutoff
         for thisRound = index
-            if round1(thisRound) > practiceCutoff && Action(thisRound-1) ~= -1 && Action2(thisRound-1) == 1 && novel(OptNum(thisRound)) && novel(NUMBERS(Action(thisRound-1)+1)-OptNum(thisRound))
+            if round1(thisRound) > practiceCutoff && Action(thisRound-1) ~= -1 && Action2(thisRound-1) == 1 %&& novel(OptNum(thisRound)) && novel(NUMBERS(Action(thisRound-1)+1)-OptNum(thisRound))
                 keep(thisRound) = true;
                 rewards(thisRound) = Re(thisRound-1);
                 subjIDs(thisRound) = id(thisRound);
