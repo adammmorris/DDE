@@ -11,9 +11,9 @@ if (tasknum < 1 || tasknum > numSubjects)
 end
 
 % Do params
-% [lr,elig,temp,w_MB]
-bounds = [0 0 0 0; 1 1 2 1];
-numParams = 4;
+% [lr,elig,temp,stay,w_MB]
+bounds = [0 0 0 0 0; 1 1 2 1 1];
+numParams = 5;
 
 % Calculate starts
 starts = zeros(numStarts,numParams);
@@ -36,7 +36,7 @@ for thisStart = 1:numStarts
     options = psoptimset('CompleteSearch','on','SearchMethod',{@searchlhs});
 
     % Do patternsearch
-    [optParams(thisStart,:),lik(thisStart),~] = patternsearch(@(params) getLikelihood_daw([params(1:3) 0 params(4)],boardpath,practiceCutoff,Opt1(index),Opt2(index),Action(index),S2(index),Action2(index),Re(index),round1(index)),starts(thisStart,:),[],[],[],[],bounds(1,:),bounds(2,:),options);
+    [optParams(thisStart,:),lik(thisStart),~] = patternsearch(@(params) getLikelihood_daw([params(1:4) 0 params(5)],boardpath,practiceCutoff,Opt1(index),Opt2(index),Action(index),S2(index),Action2(index),Re(index),round1(index)),starts(thisStart,:),[],[],[],[],bounds(1,:),bounds(2,:),options);
 end
 
 [~,bestStart] = min(lik);
