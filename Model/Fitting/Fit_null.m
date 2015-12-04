@@ -12,7 +12,7 @@ end
 
 % Do params
 % [lr,elig,temp,stay,w_MB]
-bounds = [0 0 0 0 0; 1 1 2 1 1];
+bounds = [0 0 0 0 0; 1 1 5 5 1];
 numParams = 5;
 
 % Calculate starts
